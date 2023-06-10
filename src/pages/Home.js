@@ -1,8 +1,7 @@
 import "../App.css";
 import { useState, useEffect } from "react";
 import useGetSong from "../hooks/useGetSong";
-import "./home.css"
-
+import "./home.css";
 
 function App() {
   const [song, setSong] = useState("");
@@ -32,12 +31,21 @@ function App() {
         {songs.map((_song, i) => {
           return (
             // <p>{_song.name}</p>
-            <div className=" border-2 border-purple hover:bg-gray-light hover:bg-slate-400	 mt-2 h-12 rounded-lg " key={_song.name} >
-              
-              <button onClick={() => setTheSong(_song,true)} >With Vocals</button>
-              <button onClick={() => setTheSong(_song,false)}>Without Vocals</button>
-              {_song.name}
-
+            <div
+              className="flex  flex-row	 justify-between	 border-2 border-purple hover:bg-gray-light hover:bg-slate-400	 mt-2 h-12 rounded-lg "
+              key={_song.name}
+            >
+              <div className="flex flex-row content-center	 items-center ml-2">
+                <p> {_song.name} </p>
+              </div>
+              <div className=" flex flex-row justify-between w-1/3	  items-center mr-4 text-sm	">
+                <button onClick={() => setTheSong(_song, true)}>
+                  With Vocals
+                </button>
+                <button onClick={() => setTheSong(_song, false)}>
+                  Without Vocals
+                </button>
+              </div>
             </div>
           );
         })}

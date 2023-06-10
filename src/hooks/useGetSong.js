@@ -72,10 +72,10 @@ export default function useGetSong() {
       `https://spotify-lyric-api.herokuapp.com/?trackid=${songId}&format=lrc`
     )
       .then((response) => response.json())
-      .then((data) => modfiyLines(__song, data,vocals));
+      .then((data) => modfiyLines(__song, data, vocals));
   }
 
-  async function modfiyLines(_song, data,vocals) {
+  async function modfiyLines(_song, data, vocals) {
     // console.log(data);
     var _lines = data.lines;
     var title = _song.name;
