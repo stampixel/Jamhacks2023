@@ -2,10 +2,10 @@ import React from 'react'
 
 export default function Landing() {
   return (
-    <div className="opacity-80  bg-black	 ">
+    <div className="opacity-90  bg-black	 ">
     
-      <div className="navbar flex justify-between	flex-row items-center		">
-        <div className='flex items-center justify-center	content-center flex-row m-5		'>
+      <div className="navbar flex justify-between	flex-row items-center bg-black	mt-10	">
+        <div className='flex items-center justify-center	content-center flex-row 	ml-40	'>
         <img
           src="https://firebasestorage.googleapis.com/v0/b/unify-v3-copy.appspot.com/o/r8cwveuu3z-8%3A9?alt=media&token=1bf4f878-9242-4cf5-a61f-576db78653a3"
           alt="Not Found"
@@ -16,7 +16,7 @@ export default function Landing() {
 
         
       
-        <button class=" m-5 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+        <button class="mr-40 border-4 hover:bg-purple text-white font-bold py-2 px-4 rounded-full h-14">
           START
         </button>
       </div>
