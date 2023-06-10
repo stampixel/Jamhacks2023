@@ -109,17 +109,18 @@ function App() {
         <button type="submit" class="mr-40 text-white absolute right-2.5 bottom-2.5 bg-blurple hover:bg-blurple focus:ring-4 focus:outline-none focus:ring-blurple font-medium rounded-lg text-sm px-4 py-2" onClick={() => search(song)}>Search</button>
       </div> 
         */}
-        <div className="song-list flex-col	flex">
+        <div className="song-list flex-col	flex m-20">
           {songs.map((_song, i) => {
             return (
               // <p>{_song.name}</p>
               <div
-                className="flex  flex-row	 justify-between	 border-2 border-blight text-white	 mt-2 h-12 rounded-lg "
+                className="p-6 flex  flex-row	 justify-between	 border-2 border-blight text-dark	bg-white  rounded-[25px] m-2"
                 key={_song.name}
               >
-                <img src={_song.album.images[2].url} class="w-full h-full"/>
-                <div className="flex flex-row content-center	 items-center ml-2">
-                  <p> {_song.name} </p>
+                <img src={_song.album.images[2].url} class="w-full h-full rounded-[25px]"/>
+                <div className="flex flex-row content-center	 items-center ml-20">
+                  <b> {_song.name}</b>
+                  <p>&nbsp;-&nbsp;</p>
                   <p>{_song.artists[0].name}</p>
                 </div>
                 <div className=" flex flex-row justify-between	w-full  items-center mr-4 text-sm	">
