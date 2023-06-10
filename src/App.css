@@ -2,21 +2,16 @@
 
 @import url("https://fonts.googleapis.com/css2?family=Syne:wght@400;700&display=swap");
 
+.home-page {
+    background-color: #19191C;
+    width: 100vw;
+    height: 100vh;
+}
+
 p {
   margin: 0;
 }
 
-.home-page {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: flex-start;
-  width: 1280px;
-  height: 3854px;
-  box-sizing: border-box;
-  background-color: rgba(25, 25, 28, 1);
-}
 .image-2 {
   position: absolute;
   top: 31px;
