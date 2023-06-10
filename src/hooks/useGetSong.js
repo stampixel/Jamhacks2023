@@ -6,6 +6,7 @@ export default function useGetSong() {
   const [accessToken, setAccessToken] = useState("");
   const [lines, setLines] = useState([]);
   const [songs, setSongs] = useState([]);
+  const [songLocation,setsongLocation] = useState()
   const navigate = useNavigate();
 
   // Fetch access token for Spotify API
@@ -103,12 +104,13 @@ export default function useGetSong() {
     getTimestamps(__song, vocals);
   };
 
-  function sendLyrics(data) {
+  async function sendLyrics(data) {
     console.log(data);
-    axios
-      .post("/music_json", data)
+    await axios
+      .post("/process_music", data)
       .then(function (response) {
-        console.log(response);
+        setsongLocation(response.data.fileLocation);
+
       })
       .catch(function (error) {
         console.log(error);
@@ -122,5 +124,6 @@ export default function useGetSong() {
     setTheSong,
     songs,
     lines,
+    songLocation
   };
 }
