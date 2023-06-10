@@ -1,6 +1,7 @@
 import "../App.css";
 import { useState, useEffect } from "react";
 import useGetSong from "../hooks/useGetSong";
+import axios from "axios";
 
 export default function Login() {
     const [username, setUser] = useState("");
@@ -8,7 +9,7 @@ export default function Login() {
     const { setUserState, user } = useGetSong();
 
     function loginUser(username) {
-        data = {
+        const data = {
             "username": username
         }
         axios
