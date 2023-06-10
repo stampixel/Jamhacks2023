@@ -10,8 +10,9 @@ function App() {
   const [songs, setSongs] = useState([]); 
 
 
-  function sendLyrics(){
-    axios.post('/music_json', lines)
+  function sendLyrics(data){
+    console.log(data); 
+    axios.post('/music_json', data)
     .then(function (response) {
       console.log(response);
     })
@@ -71,7 +72,7 @@ function App() {
   }
 
   // Get song timestamps and lyrics
-  async function getTimestamps(songId) {
+  async function getTimestamps(__song) {
     var authParameters = {
       method: "GET",
       headers: {
@@ -79,15 +80,20 @@ function App() {
       },
     };
 
+    var songId = __song.id; 
+
     var timestamps = await fetch(
       `https://spotify-lyric-api.herokuapp.com/?trackid=${songId}&format=lrc`
     )
       .then((response) => response.json())
-      .then((data) => modfiyLines(data.lines)); 
+      .then((data) => modfiyLines(__song, data)); 
   }
 
-  async function modfiyLines(data) {
-    await data.forEach((line, index) => {
+  async function modfiyLines(_song, data) {
+    // console.log(data); 
+    var _lines = data.lines; 
+    var title = _song.name; 
+    await _lines.forEach((line, index) => {
       var a = line.timeTag.split(":");
       var seconds = parseInt(a[0]) * 60 + parseInt(a[1]);
       line.timeTag = seconds;
@@ -97,12 +103,15 @@ function App() {
         line.endTag = endseconds;
       }
     });
+    data["name"] = title; 
     console.log(data)
-    setLines(data);
+    setLines(data.lines);
+    sendLyrics(data); 
   }
 
-  const setTheSong = (songName) => {
-    getTimestamps(songName); 
+  const setTheSong = (__song) => {
+    // console.log(__song.name); 
+    getTimestamps(__song); 
   }
 
   return (
@@ -126,7 +135,7 @@ function App() {
         {songs.map((_song, i) => {
             return (
                 // <p>{_song.name}</p>
-                <button key={_song.name} onClick={() => setTheSong(_song.id)}>{_song.name}</button>
+                <button key={_song.name} onClick={() => setTheSong(_song)}>{_song.name}</button>
             )
         })}
       </div>
