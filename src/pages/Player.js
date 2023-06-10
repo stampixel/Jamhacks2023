@@ -9,7 +9,7 @@ export default function Player() {
     <div class="flex direction-column content-center justify-center	h-screen align-middle	 w-full "> 
       <h1>Player</h1>
 
-
+    
       <AudioPlayer lines={lines} />
     </div>
   );
