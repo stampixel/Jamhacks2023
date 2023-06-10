@@ -22,9 +22,10 @@ function App() {
   },[loading])
 
   return (
-    <div className="App">
-              {isLoading? <Loading /> : ""}
-
+    
+    <div className="App w-full	">
+             
+             {isLoading? <Loading /> : ""}
       <h1 className="titleHeading">JustSing</h1>
 
       <div class="relative">

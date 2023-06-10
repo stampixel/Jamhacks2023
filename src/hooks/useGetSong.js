@@ -120,7 +120,9 @@ export default function useGetSong() {
       .catch(function (error) {
         console.log(error);
       });
+
       setLoading(false)
+
 
 
   }
