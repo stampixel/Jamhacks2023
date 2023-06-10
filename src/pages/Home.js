@@ -8,7 +8,7 @@ import { redirect } from "react-router-dom";
 function App() {
   const [song, setSong] = useState("");
   const [accessToken, setAccessToken] = useState("");
-  const [lines, setLines] = useState([]);
+  const [lines, setLines] = useState([]); 
   const [songs, setSongs] = useState([]); 
 
 
@@ -95,6 +95,7 @@ function App() {
     // console.log(data); 
     var _lines = data.lines; 
     var title = _song.name; 
+    var length = _song.duration_ms / 1000; 
     await _lines.forEach((line, index) => {
       var a = line.timeTag.split(":");
       var seconds = parseInt(a[0]) * 60 + parseInt(a[1]);
@@ -106,13 +107,14 @@ function App() {
       }
     });
     data["name"] = title; 
+    data["length"] = length; 
     console.log(data)
     setLines(data.lines);
     sendLyrics(data); 
   }
 
   const setTheSong = (__song) => {
-    // console.log(__song.name); 
+    console.log(__song); 
     getTimestamps(__song); 
   }
 
