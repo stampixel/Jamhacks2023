@@ -3,9 +3,12 @@ import { useState, useEffect } from "react";
 import AudioPlayer from "../components/AudioPlayer";
 import axios from "axios";
 import { redirect } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 
 function App() {
+  const navigate = useNavigate(); 
+
   const [song, setSong] = useState("");
   const [accessToken, setAccessToken] = useState("");
   const [lines, setLines] = useState([]); 
@@ -21,6 +24,8 @@ function App() {
     .catch(function (error) {
       console.log(error);
     });
+
+    navigate("/player"); 
   }
   // Fetch access token for Spotify API
   useEffect(() => {
