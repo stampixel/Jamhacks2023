@@ -2,7 +2,7 @@ import React from 'react'
 
 export default function Landing() {
   return (
-    <div className="bg-dark h-full w-full">
+    <div className="bg-dark h-full w-full z-0">
     
       <nav class="bg-dark fixed w-full z-20 top-0 left-0 text-white">
         <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
@@ -37,12 +37,22 @@ export default function Landing() {
         </div>
       </nav>
 
-      <div className='header'>
-        <img src='https://media.discordapp.net/attachments/1114923085540364339/1116944695143178270/black-microphone-clipart-xl.png?width=872&height=1054' class='relative top-full left-1/2'>
-
+      <div className='header' class='bg-dark'>
+        <img src='https://media.discordapp.net/attachments/1114923085540364339/1116944695143178270/black-microphone-clipart-xl.png?width=872&height=1054' class='fixed left-1/2'>
         </img>
-      </div>
+        <div>
+          <div class="h-screen flex items-center justify-center">
+            <div class="mx-2 text-center">
+              <h1 className="title" class='text-white font-extrabold text-4xl xs:text-5xl md:text-6xl'>Just Sing</h1>
+              <h2 className="subtitle" class='text-white font-regular text-1xl xs:text-2xl md:text-3xl leading-tight flex w-1/2 mx-1/2'>
+                Improve your vocal abilities and English speaking through song
+              </h2>
+            </div>
+          </div>
+        
+        </div>
 
+      </div>
     </div>
   )
 }
