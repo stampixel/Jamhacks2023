@@ -2,19 +2,13 @@ module.exports = {
   content: ['./src/**/*.{html,js}'],
   theme: {
     colors: {
-      'blue': '#1fb6ff',
-      'purple': '#692EE7',
-      'pink': '#ff49db',
-      'orange': '#ff7849',
-      'green': '#13ce66',
-      'yellow': '#ffc82c',
-      'gray-dark': '#273444',
-      'gray': '#8492a6',
-      'gray-light': '#d3dce6',
+      'blurple': '#692EE7',
+      'dark': '#692EE7',
+      'light': '#fff',
     },
     fontFamily: {
-      sans: ['Graphik', 'sans-serif'],
-      serif: ['Merriweather', 'serif'],
+      display: ['IBM Plex Mono', 'Menlo', 'monospace'],
+      body: ['IBM Plex Mono', 'Menlo', 'monospace'],
     },
     extend: {
       spacing: {
@@ -24,6 +18,28 @@ module.exports = {
       borderRadius: {
         '4xl': '2rem',
       }
-    }
+    },
+    theme: {
+      screens: {
+        'sm': '640px',
+        'md': '768px',
+        'lg': '1024px',
+        'xl': '1280px',
+        '2xl': '1536px',
+      }
+    },
+    borderRadius: {
+      'none': '0',
+      'sm': '.125rem',
+      DEFAULT: '.25rem',
+      'lg': '.5rem',
+      'full': '9999px',
+    },
+    backgroundSize: ({ theme }) => ({
+      auto: 'auto',
+      cover: 'cover',
+      contain: 'contain',
+      ...theme('spacing')
+    }),
   },
 }

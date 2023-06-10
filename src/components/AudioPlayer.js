@@ -125,8 +125,8 @@ useEffect(()=>{
 
     
   return (
-    <div>
-      <button onClick={handlePlay}>Play</button>
+    <div className="audioPlayer">
+      <button className="startButton" onClick={handlePlay}>Play</button>
       <button onClick={handlePause}>Pause</button>
       <p>Current Second: {currentSecond}</p>
       <p>{currentSegment ? currentSegment.words : ""}</p>
