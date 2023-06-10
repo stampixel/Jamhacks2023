@@ -1,8 +1,6 @@
 import json
 import uuid
 from datetime import datetime
-
-import boto3
 from flask import Blueprint, render_template, redirect, request, flash, url_for, abort, session
 import random
 from . import app
@@ -25,6 +23,8 @@ YDL_OPTIONS = {'format': 'bestaudio', 'noplaylist': 'True', 'postprocessors': [{
 }]}
 
 views = Blueprint('views', __name__)
+
+print(os.getcwd())
 
 users = db.Users
 
@@ -66,11 +66,30 @@ def login():
                 "username": newData["username"],
                 "word_accuracy": 0,
                 "pitch_accuracy": 0,
-                "total_score": 0
+                "score": 0
             }; 
             users.insert_one(newUser)
 
             return {'user_info': newUser}
+    return json.dumps({'success': True}, 200, {'ContentType': 'application/json'})
+
+@views.route('/scores', methods=['GET', 'POST'])
+def calcScore():
+    if (request.method == 'POST'):
+        data = request.get_data()
+        newData = json.loads(data)
+
+        if (users.find_one({"username": newData["username"]})):
+            users.updateOne(
+                {"word_accuracy": newData["wordAccuracy"]}, 
+                {"pitch_accuracy": newData["pitchAccuracy"]}, 
+                {"score": newData["score"]} 
+            )
+    else: 
+        allUsers = users.find()
+
+        allUsers.sort(key=lambda x: x["score"])
+        return allUsers
     return json.dumps({'success': True}, 200, {'ContentType': 'application/json'})
 
 
@@ -78,27 +97,35 @@ def login():
 @views.route('/process_music', methods=['GET', 'POST'])
 def process_music():
     if request.method == 'POST':
+        import os
+        print(os.getcwd())
+
         data = json.loads(request.get_data())
-        print(data)
-        print(str(data["name"]) + " " + str(data["lines"][-1]["timeTag"]))
+        # print(data)
+        # print(str(data["name"]) + " " + str(data["lines"][-1]["timeTag"]))
 
         audio_file = download_video(data["name"], data["length"])
 
         if data["vocals"]:
-            if not os.path.exists("../../src/audio_output"):
-                os.makedirs("../../src/audio_output")
+            if not os.path.exists("../public/audio_output"):
+                os.makedirs("../public/audio_output")
+            # os.rename(audio_file, "../public/audio_output/" + audio_file.replace(" ", ""))
+            os.rename(audio_file, "../public/audio_output/" + "bye2.mp3")
 
-            shutil.move(audio_file, "../../src/audio_output") # here
-            return {"fileLocation": f"audio_output/{audio_file}"}
+            # return {"fileLocation": f"audio_output/{audio_file}"}
+            return {"fileLocation": f"audio_output/bye2.mp3"}
+
         else:
             separate_vocals(audio_file)
-            return {"fileLocation": f"audio_output/{audio_file}/accompaniment.wav"}
+            print(os.path.splitext(audio_file.upper()))
+            return {"fileLocation": f"audio_output/{''.join(os.path.splitext(audio_file.upper())[:-1])}/accompaniment.wav"}
 
     return json.dumps({'success': True}), 200, {'ContentType': 'application/json'}
 
 
 def download_video(song, time_length):
-    results = YoutubeSearch(song, max_results=10).to_dict()
+
+    results = YoutubeSearch(song, max_results=50).to_dict()
 
     for data in results:
         if len(data['duration'].split(":")) < 3:
@@ -126,8 +153,7 @@ def average_pitch(filename):
 def separate_vocals(filename):
     # files = [f for f in os.listdir('.') if os.path.isfile(f)]
     print(os.getcwd())
-    # os.system(f"source "venv3.8/bin/activate.fish"")
-    os.system(f"python3.8 -m spleeter separate -o '../../src/audio_output' \"{filename}\"")
+    os.system(f"../venv3/bin/python3.8 -m spleeter separate -o '../../public/audio_output' \"{filename}\"")
 
 
 def upload_file_to_s3(file, bucket_name, acl="public-read"):

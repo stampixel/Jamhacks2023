@@ -1,16 +1,14 @@
 from flask import Flask
-from dotenv import load_dotenv
 import os
 import requests
 import pymongo
 import urllib.parse
-from bson.objectid import ObjectId
 import base64
 import uuid
-import boto3, botocore
 import random
 import datetime
 import io
+from dotenv import load_dotenv
 
 load_dotenv()
 app = Flask(__name__)
