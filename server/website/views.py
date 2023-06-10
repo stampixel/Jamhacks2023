@@ -32,7 +32,7 @@ def data():
     return json.dumps({'success': True}), 200, {'ContentType': 'application/json'}
 
 
-@views.route('/receive', methods=['GET', 'POST'])
+@views.route('/login', methods=['GET', 'POST'])
 def data():
     if request.method == 'POST':
         data = request.get_data()
