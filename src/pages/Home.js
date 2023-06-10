@@ -7,6 +7,7 @@ function App() {
   const [song, setSong] = useState("");
   const [accessToken, setAccessToken] = useState("");
   const [lines, setLines] = useState([]);
+  const [songs, setSongs] = useState([]); 
 
 
   function sendLyrics(){
@@ -55,7 +56,15 @@ function App() {
       .then((response) => response.json())
       .then((data) => {
         songId = data.tracks.items[0].id;
-        /*  console.log(data.tracks.items[0]); */
+        // console.log(data); 
+
+        var _songs = []; 
+        data.tracks.items.forEach(element => {
+          _songs.push(element)
+        });
+
+        setSongs(_songs); 
+        console.log(_songs); 
       });
 
     getTimestamps(songId);
@@ -74,7 +83,7 @@ function App() {
       `https://spotify-lyric-api.herokuapp.com/?trackid=${songId}&format=lrc`
     )
       .then((response) => response.json())
-      .then((data) => console.log(data.lines));
+      .then((data) => modfiyLines(data.lines)); 
   }
 
   async function modfiyLines(data) {
@@ -88,7 +97,7 @@ function App() {
         line.endTag = endseconds;
       }
     });
-    /* console.log(data) */
+    console.log(data)
     setLines(data);
   }
 
@@ -108,6 +117,15 @@ function App() {
       <button className="btn" onClick={() => search()}>
         ???? Search
       </button>
+
+      <div className="song-list">
+        {songs.map((_song, i) => {
+            return (
+                // <p>{_song.name}</p>
+                <li key={_song.name}>{_song.name}</li>
+            )
+        })}
+      </div>
 
       <AudioPlayer lines={lines}  setLines={setLines}/>
     </div>
