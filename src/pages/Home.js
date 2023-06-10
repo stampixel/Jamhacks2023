@@ -3,17 +3,15 @@ import { useState, useEffect } from "react";
 import AudioPlayer from "../components/AudioPlayer";
 import axios from "axios";
 import { redirect } from "react-router-dom";
-import useGetSong from "../hooks/useGetSong"
-
+import useGetSong from "../hooks/useGetSong";
 
 function App() {
-
   const [song, setSong] = useState("");
 
   // Get song timestamps and lyrics
-  
-  const { search,setTheSong,songs,lines} = useGetSong()
-  
+
+  const { search, setTheSong, songs, lines } = useGetSong();
+
   return (
     <div className="App">
       <h1>Lyrics Finder ????</h1>
@@ -33,13 +31,14 @@ function App() {
 
       <div className="song-list">
         {songs.map((_song, i) => {
-            return (
-                // <p>{_song.name}</p>
-                <button key={_song.name} onClick={() => setTheSong(_song)}>{_song.name}</button>
-            )
+          return (
+            // <p>{_song.name}</p>
+            <button key={_song.name} onClick={() => setTheSong(_song)}>
+              {_song.name}
+            </button>
+          );
         })}
       </div>
-
     </div>
   );
 }

@@ -1,15 +1,13 @@
-import React,{useState,useEffect} from 'react'
-import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
-
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 export default function useGetSong() {
-    const [accessToken, setAccessToken] = useState("");
-    const [lines, setLines] = useState([]); 
-    const [songs, setSongs] = useState([]); 
-    const navigate = useNavigate()
+  const [accessToken, setAccessToken] = useState("");
+  const [lines, setLines] = useState([]);
+  const [songs, setSongs] = useState([]);
+  const navigate = useNavigate();
 
-  
   // Fetch access token for Spotify API
   useEffect(() => {
     var authParameters = {
@@ -46,15 +44,15 @@ export default function useGetSong() {
       .then((response) => response.json())
       .then((data) => {
         // songId = data.tracks.items[0].id;
-        // console.log(data); 
+        // console.log(data);
 
-        var _songs = []; 
-        data.tracks.items.forEach(element => {
-          _songs.push(element)
+        var _songs = [];
+        data.tracks.items.forEach((element) => {
+          _songs.push(element);
         });
 
-        setSongs(_songs); 
-        console.log(_songs); 
+        setSongs(_songs);
+        console.log(_songs);
       });
 
     // getTimestamps(songId);
@@ -68,20 +66,20 @@ export default function useGetSong() {
       },
     };
 
-    var songId = __song.id; 
+    var songId = __song.id;
 
     var timestamps = await fetch(
       `https://spotify-lyric-api.herokuapp.com/?trackid=${songId}&format=lrc`
     )
       .then((response) => response.json())
-      .then((data) => modfiyLines(__song, data)); 
+      .then((data) => modfiyLines(__song, data));
   }
 
   async function modfiyLines(_song, data) {
-    // console.log(data); 
-    var _lines = data.lines; 
-    var title = _song.name; 
-    var length = _song.duration_ms / 1000; 
+    // console.log(data);
+    var _lines = data.lines;
+    var title = _song.name;
+    var length = _song.duration_ms / 1000;
     await _lines.forEach((line, index) => {
       var a = line.timeTag.split(":");
       var seconds = parseInt(a[0]) * 60 + parseInt(a[1]);
@@ -92,38 +90,36 @@ export default function useGetSong() {
         line.endTag = endseconds;
       }
     });
-    data["name"] = title; 
-    data["length"] = length; 
-    console.log(data)
+    data["name"] = title;
+    data["length"] = length;
+    console.log(data);
     setLines(data.lines);
-    sendLyrics(data); 
+    sendLyrics(data);
   }
- 
+
   const setTheSong = (__song) => {
-    console.log(__song); 
-    getTimestamps(__song); 
+    console.log(__song);
+    getTimestamps(__song);
+  };
+
+  function sendLyrics(data) {
+    console.log(data);
+    axios
+      .post("/music_json", data)
+      .then(function (response) {
+        console.log(response);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+
+    navigate("/player");
   }
 
-  function sendLyrics(data){
-    console.log(data); 
-    axios.post('/music_json', data)
-    .then(function (response) {
-      console.log(response);
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
-
-   navigate("/player"); 
-  }
- 
-    return {
-        search,
-        setTheSong,
-        songs,
-        lines
-
-    }
-    
-  
+  return {
+    search,
+    setTheSong,
+    songs,
+    lines,
+  };
 }
