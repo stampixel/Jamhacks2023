@@ -32,25 +32,20 @@ export default function Login() {
     }
   
     return (
-      <div className="App">
-        <h1 className="titleHeading">Login</h1>
-
-        <input value={username} onChange={(e) => setUsername(e.target.value)}></input>
-        <button onClick={loginUser}>Login</button>
-
-        <div className="song-list flex-col	flex">
-          {/*  {playerInfo?.map((player, i) => {
-                return (
-                    <div
-                        className="flex  flex-row	 justify-between	 border-2 border-purple hover:bg-gray-light hover:bg-slate-400	 mt-2 h-12 rounded-lg "
-                        key={i["username"]}
-                        >
-                        <div className="flex flex-row content-center	 items-center ml-2">
-                            <p> {i["username"]} </p>
-                        </div>
-                    </div>
-                );
-            })} */}
+        <div className='App' class='bg-dark h-screen'>
+            <div class="h-96 flex items-center justify-center">
+                <div class="mx-2 text-center">
+                <h1 className="title" class='text-white font-extrabold text-4xl xs:text-5xl md:text-6xl'>Log In</h1>
+                <h2 className="subtitle" class='text-white font-regular text-1xl xs:text-2xl md:text-3xl leading-tight flex w-1/2 mx-1/2'>
+                    Please enter your username for Just Sing below
+                </h2>
+                </div>
+            </div>
+            <div class="relative mb-4 flex w-full flex-wrap items-stretch mr-40 ml-40 mb-56	">
+                <input
+                class="relative m-0 -mr-0.5 block w-[1px] min-w-0 flex-auto p-4 text-sm text-gray border border-gray rounded-lg bg-white focus:ring-blurple focus:border-blurple" required
+                value={username} onChange={(e) => setUsername(e.target.value)} />
+            <button class="relative z-[2] flex items-center rounded-r bg-blurple px-6 py-2.5 text-xs font-medium uppercase leading-tight text-white shadow-md transition duration-150 ease-in-out hover:bg-primary-700 hover:shadow-lg focus:bg-primary-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-primary-800 active:shadow-lg" onClick={loginUser}>Login</button>
         </div>
       </div>
     );
