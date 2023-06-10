@@ -34,7 +34,7 @@ def create_db():
     print(mongo_username)
     mongo_password = urllib.parse.quote_plus(os.getenv('MONGO_PASSWORD'))
     print(mongo_password)
-    uri = f"mongodb+srv://{mongo_username}:{mongo_password}@cluster0.euyvvmd.mongodb.net/?retryWrites=true&w=majority"
+    uri = f"mongodb+srv://{mongo_username}:{mongo_password}@jamhacks2023.e610bpe.mongodb.net/?retryWrites=true&w=majority"
     client = pymongo.MongoClient(uri)
     db = client.get_database('JamHacks')
 
