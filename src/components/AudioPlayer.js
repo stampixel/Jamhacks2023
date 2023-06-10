@@ -3,7 +3,7 @@ import useSpeechRecognition from "../hooks/useSpeechRecogntion";
 import usePitchAnalyser from "../hooks/usePitchAnalyser";
 
 function AudioPlayer(props) {
-  const audioRef = useRef(new Audio("/eye.mp3"));
+  // const audioRef = useRef(new Audio("/eye.mp3"));
   const [currentSecond, setCurrentSecond] = useState(0);
   const intervalRef = useRef(null);
   const [audioEnded, setAudioEnded] = useState(false);

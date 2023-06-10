@@ -1,6 +1,8 @@
 import json
 import uuid
 from datetime import datetime
+
+import boto3
 from flask import Blueprint, render_template, redirect, request, flash, url_for, abort, session
 import random
 from . import app
@@ -76,7 +78,9 @@ def process_music():
         print(data)
         print(str(data["name"]) + " " + str(data["lines"][-1]["timeTag"]))
 
-        download_video(data["name"], data["length"])
+        video_file = download_video(data["name"], data["length"])
+        separate_vocals(video_file)
+        # upload_file_to_s3()
 
     return json.dumps({'success': True}), 200, {'ContentType': 'application/json'}
 
@@ -102,13 +106,35 @@ def download_video(song, time_length):
     # return video.get("title", None)  # No need to take the return value
     return ''.join(filename) + ".mp3"
 
+
 def average_pitch(filename):
     pass
 
-def remove_vocals(filename):
+
+def separate_vocals(filename):
     os.system("spleeter separate -o audio_output audio_example.mp3 ")
 
 
+def upload_file_to_s3(file, bucket_name, acl="public-read"):
+    try:
+        s3 = boto3.client(
+            "s3",
+            aws_access_key_id=app.config['S3_KEY'],
+            aws_secret_access_key=app.config['S3_SECRET']
+        )
+        file.seek(0)
+        s3.upload_fileobj(
+            file,
+            bucket_name,
+            session['username'] + "/" + file.filename,
+            # file.filename,
+            ExtraArgs={
+                "ACL": acl,
+                "ContentType": file.content_type
+            }
+        )
+    except Exception as e:
+        print("Something Happened: ", e)
 
 
 @views.route('/lyric_data', methods=['GET'])
