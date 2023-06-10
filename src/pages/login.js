@@ -4,9 +4,12 @@ import useGetSong from "../hooks/useGetSong";
 import axios from "axios";
 
 export default function Login() {
-    const [username, setUser] = useState("");
+    const [username, setUsername] = useState(""); 
+    // const [wordAccuracy, setWordAccuracy] = useState(0); 
+    // const [pitchAccuracy, setPitchAccuracy] = useState(0); 
+    // const [score, setScore] = useState(0); 
   
-    const { setUserState, user } = useGetSong();
+    // const { setUserState, user } = useGetSong();
 
     function loginUser(username) {
         const data = {
@@ -31,7 +34,7 @@ export default function Login() {
           type="text"
           placeholder="Username"
           onChange={(e) => {
-            setUser(e.target.value);
+            setUsername(e.target.value);
           }}
         />
   
