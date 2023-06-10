@@ -1,9 +1,11 @@
 import React, { useState, useEffect, useRef } from "react";
 import useSpeechRecognition from "../hooks/useSpeechRecogntion";
 import usePitchAnalyser from "../hooks/usePitchAnalyser";
+import axios from "axios";
 
 function AudioPlayer(props) {
-   const audioRef = useRef(new Audio("/eye.mp3"));
+  console.log(props.location);
+  const audioRef = useRef(new Audio(`../audio_output/${props.location}`));
   const [currentSecond, setCurrentSecond] = useState(0);
   const intervalRef = useRef(null);
   const [audioEnded, setAudioEnded] = useState(false);
@@ -25,6 +27,14 @@ function AudioPlayer(props) {
 
     const handleAudioEnded = () => {
       setAudioEnded(true);
+      axios
+        .post("/audio_ended")
+        .then(function (response) {
+          console.log(response);
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
     };
 
     audio.addEventListener("timeupdate", handleTimeUpdate);
