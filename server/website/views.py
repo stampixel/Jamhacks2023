@@ -53,8 +53,11 @@ def test_data():
 
 @views.route('/login', methods=['GET', 'POST'])
 def login():
+    print("success")
+
     if request.method == 'POST':
         data = request.get_data()
+        
 
         if users.find_one({"username": data.username}):
             return {'user_info': users.find_one({"username": data.username})}
