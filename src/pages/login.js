@@ -40,6 +40,7 @@ export default function Login() {
           <index 
             type="text"
             placeholder="Username"
+            value={username}
             onChange={(e) => {
               setUsername(e.target.value);
             }}

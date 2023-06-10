@@ -115,10 +115,10 @@ export default function useGetSong() {
       .post("/process_music", data)
       .then(function (response) {
             //  setLoading(false)
-      alert(response.data.fileLocation)
+      navigateScreen(response.data.fileLocation)
       })
       .catch(function (error) {
-        console.log(error);
+        alert(error);
       });
 
       setLoading(false)
