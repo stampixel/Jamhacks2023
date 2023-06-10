@@ -13,7 +13,6 @@ export default function Login() {
  //   const { user, wordAccuracy, pitchAccuracy, score } = useUserInfo();
 
     function loginUser(username) {
-      console.log(username)
         const data = {
             "username": username
         }
