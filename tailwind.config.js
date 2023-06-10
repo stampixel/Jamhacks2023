@@ -2,9 +2,11 @@ module.exports = {
   content: ['./src/**/*.{html,js}'],
   theme: {
     colors: {
-      'blurple': '#692EE7',
-      'dark': '#692EE7',
-      'light': '#fff',
+      'blurple': '#501ceb',
+      'blight': '#7040ff',
+      'dark': '#19191C',
+      'white': '#fff',
+      'gray': '#808080'
     },
     fontFamily: {
       display: ['IBM Plex Mono', 'Menlo', 'monospace'],

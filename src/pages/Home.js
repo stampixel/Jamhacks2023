@@ -32,7 +32,7 @@ function App() {
         {songs.map((_song, i) => {
           return (
             // <p>{_song.name}</p>
-            <button className=" border-2 border-purple hover:bg-gray-light hover:bg-slate-400	 mt-2 h-12 rounded-lg " key={_song.name} onClick={() => setTheSong(_song)}>
+            <button className=" border-2 border-blurple hover:bg-gray-light hover:bg-slate-400	 mt-2 h-12 rounded-lg " key={_song.name} onClick={() => setTheSong(_song)}>
               {_song.name}
             </button>
           );
