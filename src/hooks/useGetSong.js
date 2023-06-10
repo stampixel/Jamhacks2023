@@ -7,6 +7,7 @@ export default function useGetSong() {
   const [lines, setLines] = useState([]);
   const [songs, setSongs] = useState([]);
   const [slocation, setLocation] = useState("")
+  const [loading,setLoading] = useState(false)
   const navigate = useNavigate();
 
 
@@ -109,6 +110,7 @@ export default function useGetSong() {
 
   async function sendLyrics(data) {
     console.log(data);
+    setLoading(true)
     await axios
       .post("/process_music", data)
       .then(function (response) {
@@ -118,6 +120,8 @@ export default function useGetSong() {
       .catch(function (error) {
         console.log(error);
       });
+      setLoading(false)
+
 
   }
 
@@ -133,6 +137,7 @@ navigate('/player',{state:{locations:data}});
     setTheSong,
     songs,
     lines,
+    loading
 
   };
 }

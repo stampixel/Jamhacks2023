@@ -8,6 +8,7 @@ import os
 from . import db
 import youtube_dl
 import shutil
+from unidecode import unidecode
 
 from requests import get
 # from youtube_dl import YoutubeDL
@@ -57,21 +58,22 @@ def login():
 
     if request.method == 'POST':
         data = request.get_data()
-        newData = json.loads(data); 
+        newData = json.loads(data)
+        print(newData)
 
         if users.find_one({"username": newData["username"]}):
-            return {'user_info': users.find_one({"username": newData["username"]})}
+            return users.find_one({"username": newData["username"]})
         else:
             newUser = {
                 "username": newData["username"],
                 "word_accuracy": 0,
                 "pitch_accuracy": 0,
                 "score": 0
-            }; 
+            };
             users.insert_one(newUser)
 
-            return {'user_info': newUser}
-    return json.dumps({'success': True}, 200, {'ContentType': 'application/json'})
+            return newUser
+    return json.dumps({'success': True}), 200, {'ContentType': 'application/json'}
 
 @views.route('/scores', methods=['GET', 'POST'])
 def calcScore():
@@ -90,7 +92,7 @@ def calcScore():
 
         allUsers.sort(key=lambda x: x["score"])
         return allUsers
-    return json.dumps({'success': True}, 200, {'ContentType': 'application/json'})
+    return json.dumps({'success': True}), 200, {'ContentType': 'application/json'}
 
 
 # renamed music_json -->  process_music
@@ -109,16 +111,21 @@ def process_music():
         if data["vocals"]:
             if not os.path.exists("../public/audio_output"):
                 os.makedirs("../public/audio_output")
-            # os.rename(audio_file, "../public/audio_output/" + audio_file.replace(" ", ""))
-            os.rename(audio_file, "../public/audio_output/" + "bye2.mp3")
+            filename = unidecode(audio_file).replace(" ", "")
+            os.rename(audio_file, "../public/audio_output/" + filename)
+            # os.rename(audio_file, "../public/audio_output/" + "bye2.mp3")
 
             # return {"fileLocation": f"audio_output/{audio_file}"}
-            return {"fileLocation": f"audio_output/bye2.mp3"}
+            return {"fileLocation": f"audio_output/{filename}"}
 
         else:
-            separate_vocals(audio_file)
-            print(os.path.splitext(audio_file.upper()))
-            return {"fileLocation": f"audio_output/{''.join(os.path.splitext(audio_file.upper())[:-1])}/accompaniment.wav"}
+            filename = separate_vocals(audio_file)
+            # return {"fileLocation": f"audio_output/{''.join(os.path.splitext(audio_file.upper())[:-1])}/accompaniment.wav"}
+            print(os.path.splitext(filename))
+            print(os.getcwd())
+            os.rename("../public/audio_output/" + os.path.splitext(filename)[0], "../public/audio_output/" + unidecode(os.path.splitext(filename)[0]).replace(" ", ""))
+            return {"fileLocation": f"audio_output/{os.path.splitext(filename)[0]}/accompaniment.wav"}
+
 
     return json.dumps({'success': True}), 200, {'ContentType': 'application/json'}
 
@@ -153,7 +160,8 @@ def average_pitch(filename):
 def separate_vocals(filename):
     # files = [f for f in os.listdir('.') if os.path.isfile(f)]
     print(os.getcwd())
-    os.system(f"../venv3/bin/python3.8 -m spleeter separate -o '../../public/audio_output' \"{filename}\"")
+    os.system(f"../venv3/bin/python3.8 -m spleeter separate -o '../public/audio_output' \"{filename}\"")
+    return filename
 
 
 def upload_file_to_s3(file, bucket_name, acl="public-read"):
