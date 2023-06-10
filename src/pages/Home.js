@@ -4,23 +4,36 @@ import useGetSong from "../hooks/useGetSong";
 import "./home.css";
 import {BiUserVoice} from "react-icons/bi"
 import {BsPerson} from "react-icons/bs"
+import Loading from "../components/Loading";
 
 function App() {
   const [song, setSong] = useState("");
+  const { search, setTheSong, songs, lines,loading } = useGetSong();
+
+  const [isLoading, setIsLoading] = useState(loading)
 
   // Get song timestamps and lyrics
 
-  const { search, setTheSong, songs, lines } = useGetSong();
+
+
+
+  useEffect(()=>{
+    setIsLoading(loading)
+  },[loading])
 
   return (
     <div className="App">
+              {isLoading? <Loading /> : ""}
+
       <h1 className="titleHeading">JustSing</h1>
 
       <div class="relative">
         <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
             <svg aria-hidden="true" class="w-5 h-5 text-dark" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
         </div>
+
         <input
+        
           className="inp"
           type="text"
           placeholder="Song name"
