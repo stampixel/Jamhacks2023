@@ -6,8 +6,27 @@ import random
 from . import app
 import os
 from . import db
+import youtube_dl
+
+YTDL_OPTIONS = {
+    'format': 'bestaudio/best',
+    'extractaudio': True,
+    'audioformat': 'mp3',
+    'outtmpl': '%(extractor)s-%(id)s-%(title)s.%(ext)s',
+    'restrictfilenames': True,
+    'noplaylist': True,
+    'nocheckcertificate': True,
+    'ignoreerrors': False,
+    'logtostderr': False,
+    'quiet': True,
+    'no_warnings': True,
+    'default_search': 'ytsearch',
+    'source_address': '0.0.0.0',
+}
 
 views = Blueprint('views', __name__)
+ytdl = youtube_dl.YoutubeDL(YTDL_OPTIONS)
+
 
 users = db.Users
 
@@ -39,12 +58,11 @@ def test_data():
 def login():
     if request.method == 'POST':
         data = request.get_data()
-        print(data)
 
-        user = users.find_one({"username": data.username})
+        if users.find_one({"username": data.username}):
+            # Login the user here
 
-        if (user):
-            username = user.username;
+            pass
         else:
             users.insert_one({
                 "username": data.username,
@@ -53,7 +71,7 @@ def login():
                 "total_score": 0
             })
 
-    return json.dumps({'success': True}), 200, {'ContentType': 'application/json'}
+    return json.dumps({'success': True}), 200, {'ContentType': 'app~lication/json'}
 
 
 @views.route('/music_json', methods=['GET', 'POST'])
