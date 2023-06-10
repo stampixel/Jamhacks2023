@@ -59,7 +59,6 @@ def download_video(song, time_length):
                         video = ydl.extract_info(f"ytsearch:{title}", download=True)['entries'][0]
                     else:
                         video = ydl.extract_info(title, download=True)
-                # filename = ydl.prepare_filename(video).split(".")[:-1]
                 filename = os.path.splitext(ydl.prepare_filename(video))[:-1]
                 break
     # return video.get("title", None)  # No need to take the return value
@@ -67,6 +66,8 @@ def download_video(song, time_length):
 
 
 def separate_vocals(filename):
+    import sys
+    print(sys.executable)
     print(os.getcwd())
     print(os.path.isfile(filename))
     files = [f for f in os.listdir('.') if os.path.isfile(f)]
@@ -74,5 +75,5 @@ def separate_vocals(filename):
     os.system(f"spleeter separate -o audio_output \"{filename}\"")
 
 
-video_file = download_video("see you again tyler the creator", 181)
+video_file = download_video("EARFQUAKE tyler the creator", 190)
 separate_vocals(video_file)

@@ -10,6 +10,7 @@
     "axios": "^1.4.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-icons": "^4.9.0",
     "react-router-dom": "^6.12.1",
     "react-scripts": "5.0.1",
     "web-vitals": "^2.1.4"
@@ -20,7 +21,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "backend": "cd server && python app.py ",
-    "backend-linux": "cd server && ../venv/bin/flask run --debug"
+    "backend-linux": "cd server && ../venv3.8/bin/flask run --debug"
   },
   "eslintConfig": {
     "extends": [

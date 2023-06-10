@@ -30,6 +30,13 @@ module.exports = {
         '2xl': '1536px',
       }
     },
+
+    width:{
+      buttonSize:{
+        'smallx' : '12rem'
+      },
+
+  },
     borderRadius: {
       'none': '0',
       'sm': '.125rem',

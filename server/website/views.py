@@ -9,6 +9,7 @@ from . import app
 import os
 from . import db
 import youtube_dl
+import shutil
 
 from requests import get
 # from youtube_dl import YoutubeDL
@@ -76,9 +77,17 @@ def process_music():
         print(data)
         print(str(data["name"]) + " " + str(data["lines"][-1]["timeTag"]))
 
-        video_file = download_video(data["name"], data["length"])
-        separate_vocals(video_file)
-        # upload_file_to_s3()
+        audio_file = download_video(data["name"], data["length"])
+
+        if data["vocals"]:
+            if not os.path.exists("../../src/audio_output"):
+                os.makedirs("../../src/audio_output")
+
+            shutil.move(audio_file, "../../src/audio_output") # here
+            return {"fileLocation": f"audio_output/{audio_file}"}
+        else:
+            separate_vocals(audio_file)
+            return {"fileLocation": f"audio_output/{audio_file}/accompaniment.wav"}
 
     return json.dumps({'success': True}), 200, {'ContentType': 'application/json'}
 
@@ -99,7 +108,7 @@ def download_video(song, time_length):
                         video = ydl.extract_info(f"ytsearch:{title}", download=True)['entries'][0]
                     else:
                         video = ydl.extract_info(title, download=True)
-                filename = ydl.prepare_filename(video).split(".")[:-1]
+                filename = os.path.splitext(ydl.prepare_filename(video))[:-1]
                 break
     # return video.get("title", None)  # No need to take the return value
     return ''.join(filename) + ".mp3"
@@ -110,7 +119,10 @@ def average_pitch(filename):
 
 
 def separate_vocals(filename):
-    os.system("spleeter separate -o audio_output audio_example.mp3 ")
+    # files = [f for f in os.listdir('.') if os.path.isfile(f)]
+    print(os.getcwd())
+    os.system(f"source "venv3.8/bin/activate.fish"")
+    os.system(f"spleeter separate -o '../../src/audio_output' \"{filename}\"")
 
 
 def upload_file_to_s3(file, bucket_name, acl="public-read"):
