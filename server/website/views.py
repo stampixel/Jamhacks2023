@@ -141,4 +141,10 @@ def upload_file_to_s3(file, bucket_name, acl="public-read"):
 def process_lyric():
     data = request.get_data()
 
-    return json.dumps({"lyric_number": lyrics[data.lyric_number]});
+    return json.dumps({"lyric_number": lyrics[data.lyric_number]})
+
+@views.route('audio_ended', methods=['POST'])
+def delete_audio():
+    # end audio
+
+    return json.dumps({'success': True}), 200, {'ContentType': 'application/json'}
