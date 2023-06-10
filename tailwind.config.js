@@ -9,8 +9,7 @@ module.exports = {
       'gray': '#808080'
     },
     fontFamily: {
-      display: ['IBM Plex Mono', 'Menlo', 'monospace'],
-      body: ['IBM Plex Mono', 'Menlo', 'monospace'],
+      'syne': 'Syne'
     },
     extend: {
       spacing: {
