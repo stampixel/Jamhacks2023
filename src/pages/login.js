@@ -9,6 +9,7 @@ export default function Login() {
     const { setUserState, user } = useGetSong();
 
     function loginUser(username) {
+      console.log(username)
         const data = {
             "username": username
         }
