@@ -14,7 +14,7 @@ function App() {
 
   function sendLyrics(data){
     console.log(data); 
-    axios.post('/music_json', data)
+    axios.post('/process_music', data)
     .then(function (response) {
       console.log(response);
     })
@@ -144,7 +144,7 @@ function App() {
         })}
       </div>
 
-      <AudioPlayer lines={lines}  setLines={setLines}/>
+      {/*<AudioPlayer lines={lines}  setLines={setLines}/>*/}
     </div>
   );
 }
