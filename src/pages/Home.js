@@ -1,12 +1,23 @@
 import "../App.css";
 import { useState, useEffect } from "react";
 import AudioPlayer from "../components/AudioPlayer";
+import axios from "axios";
 
 function App() {
   const [song, setSong] = useState("");
   const [accessToken, setAccessToken] = useState("");
   const [lines, setLines] = useState([]);
 
+
+  function sendLyrics(){
+    axios.post('/music_json', lines)
+    .then(function (response) {
+      console.log(response);
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+  }
   // Fetch access token for Spotify API
   useEffect(() => {
     var authParameters = {
@@ -79,6 +90,7 @@ function App() {
     });
     /* console.log(data) */
     setLines(data);
+    sendLyrics()
   }
 
   return (

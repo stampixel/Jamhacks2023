@@ -16,8 +16,6 @@ function AudioPlayer(props) {
   //const { startRecording, analyser, message } = useAudioVisualization();
   const [isRecognitionDelayed, setIsRecognitionDelayed] = useState(false);
 
- 
-
   useEffect(() => {
     const audio = audioRef.current;
 
