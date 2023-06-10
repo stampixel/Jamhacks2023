@@ -99,8 +99,8 @@ export default function useGetSong() {
     data["vocals"] = vocals;
     
     console.log(data);
-    setLines(data.lines);
-    sendLyrics(data);
+   // setLines(data.lines);
+     sendLyrics(data);
   }
 
   const setTheSong = (__song, vocals) => {
@@ -109,18 +109,17 @@ export default function useGetSong() {
   };
 
   async function sendLyrics(data) {
-    console.log(data);
-    setLoading(true)
+    console.log("data:", data);
+    //setLoading(true)
     await axios
       .post("/process_music", data)
       .then(function (response) {
-      navigateScreen(response.data.fileLocation)
+            //  setLoading(false)
+      alert(response.data.fileLocation)
       })
-
       .catch(function (error) {
         console.log(error);
       });
-      setLoading(false)
 
 
   }
