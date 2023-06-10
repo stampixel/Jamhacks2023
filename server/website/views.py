@@ -64,11 +64,30 @@ def login():
                 "username": newData["username"],
                 "word_accuracy": 0,
                 "pitch_accuracy": 0,
-                "total_score": 0
+                "score": 0
             }; 
             users.insert_one(newUser)
 
             return {'user_info': newUser}
+    return json.dumps({'success': True}, 200, {'ContentType': 'application/json'})
+
+@views.route('/scores', methods=['GET', 'POST'])
+def calcScore():
+    if (request.method == 'POST'):
+        data = request.get_data()
+        newData = json.loads(data)
+
+        if (users.find_one({"username": newData["username"]})):
+            users.updateOne(
+                {"word_accuracy": newData["wordAccuracy"]}, 
+                {"pitch_accuracy": newData["pitchAccuracy"]}, 
+                {"score": newData["score"]} 
+            )
+    else: 
+        allUsers = users.find()
+
+        allUsers.sort(key=lambda x: x["score"])
+        return allUsers
     return json.dumps({'success': True}, 200, {'ContentType': 'application/json'})
 
 

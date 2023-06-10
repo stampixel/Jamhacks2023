@@ -1,15 +1,16 @@
 import "../App.css";
 import { useState, useEffect } from "react";
 import useGetSong from "../hooks/useGetSong";
+import getUserInfo from "../hooks/getUserInfo";
 import axios from "axios";
 
 export default function Login() {
     const [username, setUsername] = useState(""); 
-    // const [wordAccuracy, setWordAccuracy] = useState(0); 
-    // const [pitchAccuracy, setPitchAccuracy] = useState(0); 
-    // const [score, setScore] = useState(0); 
+    const [word_accuracy, setWordAccuracy] = useState(0); 
+    const [pitch_accuracy, setPitchAccuracy] = useState(0); 
+    const [total_score, setScore] = useState(0); 
   
-    // const { setUserState, user } = useGetSong();
+    const { user, wordAccuracy, pitchAccuracy, score } = getUserInfo();
 
     function loginUser(username) {
         const data = {
@@ -18,6 +19,11 @@ export default function Login() {
         axios
             .post("/login", data)
             .then(function (response) {
+                setUsername(username); 
+                setWordAccuracy(response.word_accuracy); 
+                setPitchAccuracy(response.pitch_accuracy)
+                setScore(response.score); 
+                getUserInfo(username, word_accuracy, pitch_accuracy, total_score); 
                 console.log(response);
             })
             .catch(function (error) {
