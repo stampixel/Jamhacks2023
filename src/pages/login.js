@@ -35,7 +35,7 @@ export default function Login() {
           type="text"
           placeholder="Username"
           onChange={(e) => {
-            setUser(e.target.value);
+            setUsername(e.target.value);
           }}
         />
   
