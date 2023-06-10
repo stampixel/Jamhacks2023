@@ -74,7 +74,7 @@ function App() {
       `https://spotify-lyric-api.herokuapp.com/?trackid=${songId}&format=lrc`
     )
       .then((response) => response.json())
-      .then((data) => modfiyLines(data.lines));
+      .then((data) => console.log(data.lines));
   }
 
   async function modfiyLines(data) {
@@ -90,7 +90,6 @@ function App() {
     });
     /* console.log(data) */
     setLines(data);
-    sendLyrics()
   }
 
   return (
