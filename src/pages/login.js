@@ -10,7 +10,7 @@ export default function Login() {
     // const [pitch_accuracy, setPitchAccuracy] = useState(0); 
     // const [total_score, setScore] = useState(0); 
   
- //   const { user, wordAccuracy, pitchAccuracy, score } = useUserInfo();
+  const { changeProfile, inputs } = useUserInfo();
 
     function loginUser(username) {
         const data = {
@@ -23,7 +23,7 @@ export default function Login() {
                 // setWordAccuracy(response.word_accuracy); 
                 // setPitchAccuracy(response.pitch_accuracy)
                 // setScore(response.score); 
-             //   useUserInfo(username, word_accuracy, pitch_accuracy, total_score);
+             
                 console.log(response);
             })
             .catch(function (error) {

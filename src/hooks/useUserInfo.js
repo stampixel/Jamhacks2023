@@ -11,10 +11,16 @@ export default function useUserInfo() {
       });
 
       
-     /* changeProfile(){
+     function changeProfile(variables, values){
         setInputs((prev) => ({
             ...prev,
-            [event.target.name]: event.target.value,
+            [variables]:values,
           }));
-      } */
+      } 
+
+      return{
+        changeProfile,
+        inputs
+        
+      }
 }
