@@ -4,8 +4,11 @@ import usePitchAnalyser from "../hooks/usePitchAnalyser";
 import axios from "axios";
 
 function AudioPlayer(props) {
+  console.log("/")
   console.log(props.location);
-  const audioRef = useRef(new Audio(`../audio_output/${props.location}`));
+  // const audioRef = useRef(new Audio("../../" + props.location));
+  const audioRef = useRef(new Audio("../../" + props.location));
+  console.log("audioRef, ", audioRef)
   const [currentSecond, setCurrentSecond] = useState(0);
   const intervalRef = useRef(null);
   const [audioEnded, setAudioEnded] = useState(false);

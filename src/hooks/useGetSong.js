@@ -6,8 +6,10 @@ export default function useGetSong() {
   const [accessToken, setAccessToken] = useState("");
   const [lines, setLines] = useState([]);
   const [songs, setSongs] = useState([]);
-  const [songLocation,setsongLocation] = useState()
+  const [slocation, setLocation] = useState("")
   const navigate = useNavigate();
+
+
 
   // Fetch access token for Spotify API
   useEffect(() => {
@@ -109,21 +111,27 @@ export default function useGetSong() {
     await axios
       .post("/process_music", data)
       .then(function (response) {
-        setsongLocation(response.data.fileLocation);
-
+      navigateScreen(response.data.fileLocation)
       })
+
       .catch(function (error) {
         console.log(error);
       });
 
-    navigate("/player");
   }
+
+  function navigateScreen(data){
+navigate('/player',{state:{locations:data}});
+  }
+
+
+
 
   return {
     search,
     setTheSong,
     songs,
     lines,
-    songLocation
+
   };
 }

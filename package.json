@@ -20,7 +20,11 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
+
+
     "backend": "cd server && python app.py ",
+    "chdir": "source 'venv/bin/activate.fish'",
+
     "backend-linux": "cd server && ../venv/bin/flask run --debug"
   },
   "eslintConfig": {
