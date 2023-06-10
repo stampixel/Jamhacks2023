@@ -110,7 +110,7 @@ function App() {
         ???? Search
       </button>
 
-      <AudioPlayer lines={lines} />
+      <AudioPlayer lines={lines}  setLines={setLines}/>
     </div>
   );
 }

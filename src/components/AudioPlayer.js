@@ -73,6 +73,7 @@ function AudioPlayer(props) {
       currentSecond >= segment.timeTag && currentSecond < segment.endTag
   );
 
+  
   const {
     text,
     arrayLyrics,
@@ -112,6 +113,17 @@ console.log(linePitch)
     console.log(linePitch);
   }, [linePitch]); */
 
+useEffect(()=>{
+
+ if( arrayLyrics.length > 0){
+  props.setLines((prev) => ({
+    ...prev,
+    ["speechLyrics"]: arrayLyrics[currentIndex]
+  }));
+}
+},[arrayLyrics])
+
+    
   return (
     <div>
       <button onClick={handlePlay}>Play</button>
