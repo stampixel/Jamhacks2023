@@ -1,0 +1,536 @@
+/* Home page */
+
+@import url("https://fonts.googleapis.com/css2?family=Syne:wght@400;700&display=swap");
+
+p {
+  margin: 0;
+}
+
+.home-page {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  width: 1280px;
+  height: 3854px;
+  box-sizing: border-box;
+  background-color: rgba(25, 25, 28, 1);
+}
+.image-2 {
+  position: absolute;
+  top: 31px;
+  left: 543px;
+  width: 1076px;
+  height: 1302px;
+}
+
+.navbar {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+  height: 112px;
+  padding: 17px 93px 18px 92px;
+  box-sizing: border-box;
+  background-color: rgba(25, 25, 28, 1);
+}
+.image-1 {
+  width: 72px;
+  height: 100%;
+}
+
+.frame-2 {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 2px;
+  height: fit-content;
+  box-sizing: border-box;
+}
+.start {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  color: rgba(255, 255, 255, 1);
+  font-size: 24px;
+  line-height: 24px;
+  font-family: Syne, sans-serif;
+  font-weight: 700;
+  text-align: center;
+}
+
+.start-1 {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  color: rgba(255, 255, 255, 1);
+  font-size: 24px;
+  line-height: 24px;
+  font-family: Syne, sans-serif;
+  font-weight: 700;
+  text-align: center;
+}
+
+.start-2 {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  color: rgba(255, 255, 255, 1);
+  font-size: 24px;
+  line-height: 24px;
+  font-family: Syne, sans-serif;
+  font-weight: 700;
+  text-align: center;
+}
+
+.start-3 {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  color: rgba(255, 255, 255, 1);
+  font-size: 24px;
+  line-height: 24px;
+  font-family: Syne, sans-serif;
+  font-weight: 700;
+  text-align: center;
+}
+
+.group-1 {
+  width: 194px;
+  height: 100%;
+  padding: 22px 47px 21px;
+  border: 5px solid rgba(255, 255, 255, 1);
+  border-radius: 50px;
+  box-sizing: border-box;
+}
+.start-4 {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  color: rgba(255, 255, 255, 1);
+  font-size: 24px;
+  line-height: 24px;
+  font-family: Syne, sans-serif;
+  font-weight: 700;
+  text-align: center;
+}
+
+.title {
+  position: absolute;
+  top: 257px;
+  left: 392px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 495px;
+  height: 183px;
+  padding: 10px 2px 5px;
+  box-sizing: border-box;
+}
+.just-sing {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  color: rgba(255, 255, 255, 1);
+  font-size: 100px;
+  line-height: 100px;
+  font-family: Syne, sans-serif;
+  font-weight: 700;
+  text-align: center;
+}
+
+.improve-your-vocal-abil {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  color: rgba(255, 255, 255, 1);
+  font-size: 24px;
+  line-height: 24px;
+  font-family: Syne, sans-serif;
+  font-weight: 400;
+  text-align: center;
+}
+
+.start-button {
+  position: absolute;
+  top: 495px;
+  left: 543px;
+  width: 194px;
+  height: 77px;
+  padding: 18px 32px 17px;
+  border: 5px solid rgba(255, 255, 255, 1);
+  border-radius: 50px;
+  box-sizing: border-box;
+  background-color: rgba(105, 46, 231, 1);
+}
+.start-5 {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  color: rgba(255, 255, 255, 1);
+  font-size: 32px;
+  line-height: 32px;
+  font-family: Syne, sans-serif;
+  font-weight: 700;
+  text-align: center;
+}
+
+.stars {
+  position: absolute;
+  top: 232px;
+  left: 191px;
+  width: 902px;
+  height: 365px;
+}
+
+.image-3 {
+  position: absolute;
+  top: 2923px;
+  left: 543px;
+  width: 1076px;
+  height: 1302px;
+}
+
+.title-1 {
+  position: absolute;
+  top: 3149px;
+  left: 392px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 495px;
+  height: 183px;
+  padding: 10px 2px 5px;
+  box-sizing: border-box;
+}
+.just-sing-1 {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  color: rgba(255, 255, 255, 1);
+  font-size: 100px;
+  line-height: 100px;
+  font-family: Syne, sans-serif;
+  font-weight: 700;
+  text-align: center;
+}
+
+.improve-your-vocal-abil-1 {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  color: rgba(255, 255, 255, 1);
+  font-size: 24px;
+  line-height: 24px;
+  font-family: Syne, sans-serif;
+  font-weight: 400;
+  text-align: center;
+}
+
+.start-button-1 {
+  position: absolute;
+  top: 3387px;
+  left: 543px;
+  width: 194px;
+  height: 77px;
+  padding: 18px 32px 17px;
+  border: 5px solid rgba(255, 255, 255, 1);
+  border-radius: 50px;
+  box-sizing: border-box;
+  background-color: rgba(105, 46, 231, 1);
+}
+.start-7 {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  color: rgba(255, 255, 255, 1);
+  font-size: 32px;
+  line-height: 32px;
+  font-family: Syne, sans-serif;
+  font-weight: 700;
+  text-align: center;
+}
+
+.stars-1 {
+  position: absolute;
+  top: 3124px;
+  left: 191px;
+  width: 902px;
+  height: 365px;
+}
+
+.frame-3 {
+  position: absolute;
+  top: 715px;
+  left: 0px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  width: 100%;
+  height: 117px;
+  box-sizing: border-box;
+  background-color: rgba(255, 255, 255, 1);
+}
+.improve-your-vocal-abil-2 {
+  position: absolute;
+  top: 34px;
+  left: 213.99px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  color: rgba(105, 46, 231, 1);
+  font-size: 50px;
+  line-height: 50px;
+  font-family: Syne, sans-serif;
+  font-weight: 700;
+  text-align: center;
+}
+
+.frame-9 {
+  position: absolute;
+  top: 2812px;
+  left: -1px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  width: 100%;
+  height: 117px;
+  box-sizing: border-box;
+  background-color: rgba(255, 255, 255, 1);
+}
+.improve-your-vocal-abil-3 {
+  position: absolute;
+  top: 34px;
+  left: 213.99px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  color: rgba(105, 46, 231, 1);
+  font-size: 50px;
+  line-height: 50px;
+  font-family: Syne, sans-serif;
+  font-weight: 700;
+  text-align: center;
+}
+
+.frame-10 {
+  position: absolute;
+  top: 3658px;
+  left: -1px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  width: 100%;
+  height: 117px;
+  box-sizing: border-box;
+  background-color: rgba(255, 255, 255, 1);
+}
+.improve-your-vocal-abil-4 {
+  position: absolute;
+  top: 34px;
+  left: 213.99px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  color: rgba(105, 46, 231, 1);
+  font-size: 50px;
+  line-height: 50px;
+  font-family: Syne, sans-serif;
+  font-weight: 700;
+  text-align: center;
+}
+
+.group-749 {
+  position: absolute;
+  top: 832px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  height: 1158px;
+  padding: 191px 135px 271px;
+  box-sizing: border-box;
+  background-color: rgba(105, 46, 231, 1);
+}
+.kevin-sucks {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  color: rgba(255, 255, 255, 1);
+  font-size: 100px;
+  line-height: 100px;
+  font-family: Syne, sans-serif;
+  font-weight: 700;
+  text-align: center;
+}
+
+.he-just-does-its-weirdhe {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  color: rgba(255, 255, 255, 1);
+  font-size: 24px;
+  line-height: 24px;
+  font-family: Syne, sans-serif;
+  font-weight: 400;
+  text-align: center;
+}
+
+.frame-7 {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 100px;
+  width: 100%;
+  box-sizing: border-box;
+}
+.group-5 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+  padding: 0px 4px 8px;
+  box-sizing: border-box;
+}
+.image-11 {
+  width: 186.9px;
+  height: 200px;
+}
+
+.global {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  color: rgba(255, 255, 255, 1);
+  font-size: 80px;
+  line-height: 80px;
+  font-family: Syne, sans-serif;
+  font-weight: 700;
+  text-align: center;
+}
+
+.group-4 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+  padding: 0px 3px 8px;
+  box-sizing: border-box;
+}
+.image-31 {
+  width: 185.47px;
+  height: 200px;
+}
+
+.virtual {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  color: rgba(255, 255, 255, 1);
+  font-size: 80px;
+  line-height: 80px;
+  font-family: Syne, sans-serif;
+  font-weight: 700;
+  text-align: center;
+}
+
+.group-6 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+  padding: 0px 1px 8px;
+  box-sizing: border-box;
+}
+.image-4 {
+  width: 185.65px;
+  height: 200px;
+}
+
+.wow {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  color: rgba(255, 255, 255, 1);
+  font-size: 80px;
+  line-height: 80px;
+  font-family: Syne, sans-serif;
+  font-weight: 700;
+  text-align: center;
+}
+
+.group-499 {
+  position: absolute;
+  top: 1990px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  height: 539.5px;
+  box-sizing: border-box;
+}
+.frame-8 {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  width: 100%;
+  box-sizing: border-box;
+  background-color: rgba(255, 255, 255, 1);
+}
+.improve-your-vocal-abil-5 {
+  position: absolute;
+  top: 34px;
+  left: 213.99px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  color: rgba(105, 46, 231, 1);
+  font-size: 50px;
+  line-height: 50px;
+  font-family: Syne, sans-serif;
+  font-weight: 700;
+  text-align: center;
+}
+
+.kevin-sucks-1 {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  color: rgba(255, 255, 255, 1);
+  font-size: 100px;
+  line-height: 100px;
+  font-family: Syne, sans-serif;
+  font-weight: 700;
+  text-align: center;
+}
+
+.he-just-does-its-weirdhe-1 {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  color: rgba(255, 255, 255, 1);
+  font-size: 24px;
+  line-height: 24px;
+  font-family: Syne, sans-serif;
+  font-weight: 400;
+  text-align: center;
+}
+
+.image-5 {
+  position: absolute;
+  top: 3612px;
+  left: 526px;
+  width: 227px;
+  height: 242px;
+}
