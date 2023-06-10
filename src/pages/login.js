@@ -4,7 +4,10 @@ import useGetSong from "../hooks/useGetSong";
 import axios from "axios";
 
 export default function Login() {
-    const [username, setUser] = useState("");
+    const [username, setUsername] = useState(""); 
+    const [wordAccuracy, setWordAccuracy] = useState(0); 
+    const [pitchAccuracy, setPitchAccuracy] = useState(0); 
+    const [score, setScore] = useState(0); 
   
     const { setUserState, user } = useGetSong();
 

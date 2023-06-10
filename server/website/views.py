@@ -59,14 +59,15 @@ def login():
         if users.find_one({"username": data.username}):
             return json.dumps({'success': True}, 200, {'ContentType': 'application/json'}, {'user_info': users.find_one({"username": data.username})})
         else:
-            users.insert_one({
+            newUser = {
                 "username": data.username,
                 "word_accuracy": 0,
                 "pitch_accuracy": 0,
                 "total_score": 0
-            })
+            }; 
+            users.insert_one(newUser)
 
-            return json.dumps({'success': True}, 200, {'ContentType': 'application/json'}, {'user_info': users.find_one({"username": data.username})})
+            return json.dumps({'success': True}, 200, {'ContentType': 'application/json'}, {'user_info': newUser})
 
 
 # renamed music_json -->  process_music
