@@ -7,6 +7,7 @@ from . import app
 import os
 from . import db
 import youtube_dl
+from bson import json_util
 import shutil
 from unidecode import unidecode
 
@@ -54,26 +55,26 @@ def test_data():
 
 @views.route('/login', methods=['GET', 'POST'])
 def login():
-    print("success")
-
     if request.method == 'POST':
-        data = request.get_data()
-        newData = json.loads(data)
-        print(newData)
+        data = json.loads(request.get_data())
 
-        if users.find_one({"username": newData["username"]}):
-            return users.find_one({"username": newData["username"]})
+        print(users.find_one({"username": data["username"]}))
+        user = users.find_one({"username": data["username"]})
+        if user:
+            return json.loads(json_util.dumps(users.find_one({"username": data["username"]})))
+            return users.find_one({"username": data["username"]})
         else:
-            newUser = {
-                "username": newData["username"],
+            new_user = {
+                "username": data["username"],
                 "word_accuracy": 0,
                 "pitch_accuracy": 0,
                 "score": 0
-            };
-            users.insert_one(newUser)
+            }
+            users.insert_one(new_user)
 
-            return newUser
+            return json.loads(json_util.dumps(new_user))
     return json.dumps({'success': True}), 200, {'ContentType': 'application/json'}
+
 
 @views.route('/scores', methods=['GET', 'POST'])
 def calcScore():
@@ -83,11 +84,11 @@ def calcScore():
 
         if (users.find_one({"username": newData["username"]})):
             users.updateOne(
-                {"word_accuracy": newData["wordAccuracy"]}, 
-                {"pitch_accuracy": newData["pitchAccuracy"]}, 
-                {"score": newData["score"]} 
+                {"word_accuracy": newData["wordAccuracy"]},
+                {"pitch_accuracy": newData["pitchAccuracy"]},
+                {"score": newData["score"]}
             )
-    else: 
+    else:
         allUsers = users.find()
 
         allUsers.sort(key=lambda x: x["score"])
@@ -123,15 +124,14 @@ def process_music():
             # return {"fileLocation": f"audio_output/{''.join(os.path.splitext(audio_file.upper())[:-1])}/accompaniment.wav"}
             print(os.path.splitext(filename))
             print(os.getcwd())
-            os.rename("../public/audio_output/" + os.path.splitext(filename)[0], "../public/audio_output/" + unidecode(os.path.splitext(filename)[0]).replace(" ", ""))
+            os.rename("../public/audio_output/" + os.path.splitext(filename)[0],
+                      "../public/audio_output/" + unidecode(os.path.splitext(filename)[0]).replace(" ", ""))
             return {"fileLocation": f"audio_output/{os.path.splitext(filename)[0]}/accompaniment.wav"}
-
 
     return json.dumps({'success': True}), 200, {'ContentType': 'application/json'}
 
 
 def download_video(song, time_length):
-
     results = YoutubeSearch(song, max_results=50).to_dict()
 
     for data in results:
@@ -191,6 +191,7 @@ def process_lyric():
     data = request.get_data()
 
     return json.dumps({"lyric_number": lyrics[data.lyric_number]})
+
 
 @views.route('audio_ended', methods=['POST'])
 def delete_audio():

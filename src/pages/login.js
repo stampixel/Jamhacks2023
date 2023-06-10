@@ -6,11 +6,11 @@ import axios from "axios";
 
 export default function Login() {
     const [username, setUsername] = useState(""); 
-    const [word_accuracy, setWordAccuracy] = useState(0); 
-    const [pitch_accuracy, setPitchAccuracy] = useState(0); 
-    const [total_score, setScore] = useState(0); 
+    // const [word_accuracy, setWordAccuracy] = useState(0); 
+    // const [pitch_accuracy, setPitchAccuracy] = useState(0); 
+    // const [total_score, setScore] = useState(0); 
   
- //   const { user, wordAccuracy, pitchAccuracy, score } = useUserInfo();
+  const { changeProfile, inputs } = useUserInfo();
 
     function loginUser(username) {
         const data = {
@@ -19,11 +19,11 @@ export default function Login() {
         axios
             .post("/login", data)
             .then(function (response) {
-                setUsername(username); 
-                setWordAccuracy(response.word_accuracy); 
-                setPitchAccuracy(response.pitch_accuracy)
-                setScore(response.score); 
-             //   useUserInfo(username, word_accuracy, pitch_accuracy, total_score);
+                // setUsername(username); 
+                // setWordAccuracy(response.word_accuracy); 
+                // setPitchAccuracy(response.pitch_accuracy)
+                // setScore(response.score); 
+             
                 console.log(response);
             })
             .catch(function (error) {
