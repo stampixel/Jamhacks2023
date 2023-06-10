@@ -55,12 +55,13 @@ def test_data():
 def login():
     if request.method == 'POST':
         data = request.get_data()
+        newData = json.loads(data); 
 
-        if users.find_one({"username": data["username"]}):
-            return {'user_info': users.find_one({"username": data["username"]})}
+        if users.find_one({"username": newData["username"]}):
+            return {'user_info': users.find_one({"username": newData["username"]})}
         else:
             newUser = {
-                "username": data["username"],
+                "username": newData["username"],
                 "word_accuracy": 0,
                 "pitch_accuracy": 0,
                 "total_score": 0
