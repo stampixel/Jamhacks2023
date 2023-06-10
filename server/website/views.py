@@ -11,10 +11,19 @@ views = Blueprint('views', __name__)
 
 users = db.Users; 
 
-username = ""; 
+# Index page
+@views.route('/profile')
+def profile():
+
+    response_body = {
+        "name": "Kevin",
+        "about": "Hello! I'm a full stack developer that loves python and javascript"
+    }
+
+    return response_body
 
 
-@views.route('/user', methods=['GET', 'POST'])
+@views.route('/receive', methods=['GET', 'POST'])
 def data():
     if request.method == 'POST':
         data = request.get_data()
