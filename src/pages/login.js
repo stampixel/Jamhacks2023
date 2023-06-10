@@ -12,7 +12,7 @@ export default function Login() {
   
   const { changeProfile, inputs } = useUserInfo();
 
-    function loginUser(username) {
+    function loginUser() {
         const data = {
             "username": username
         }
@@ -35,8 +35,11 @@ export default function Login() {
       <div className="App">
         <h1 className="titleHeading">Login</h1>
 
+        <input value={username} onChange={(e) => setUsername(e.target.value)}></input>
+        <button onClick={loginUser}>Login</button>
+
         <div className="song-list flex-col	flex">
-            {playerInfo.map((player, i) => {
+          {/*  {playerInfo?.map((player, i) => {
                 return (
                     <div
                         className="flex  flex-row	 justify-between	 border-2 border-purple hover:bg-gray-light hover:bg-slate-400	 mt-2 h-12 rounded-lg "
@@ -47,7 +50,7 @@ export default function Login() {
                         </div>
                     </div>
                 );
-            })}
+            })} */}
         </div>
       </div>
     );
