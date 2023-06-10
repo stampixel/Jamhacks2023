@@ -9,10 +9,9 @@ import os
 views = Blueprint('views', __name__)
 
 
-# Index page
+# THIS IS A TEST METHOD
 @views.route('/profile')
 def profile():
-
     response_body = {
         "name": "Kevin",
         "about": "Hello! I'm a full stack developer that loves python and javascript"
@@ -20,7 +19,7 @@ def profile():
 
     return response_body
 
-
+# THIS IS A TEST METHOD
 @views.route('/receive', methods=['GET', 'POST'])
 def data():
     if request.method == 'POST':
@@ -28,4 +27,13 @@ def data():
         data = request.get_data()
         print(data)
 
+    return json.dumps({'success': True}), 200, {'ContentType': 'application/json'}
+
+
+@views.route('/music_json')
+def music_json():
+    if request.method == 'POST':
+        data = request.get_data()
+
+        print(data)
     return json.dumps({'success': True}), 200, {'ContentType': 'application/json'}
