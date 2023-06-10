@@ -121,8 +121,8 @@ def average_pitch(filename):
 def separate_vocals(filename):
     # files = [f for f in os.listdir('.') if os.path.isfile(f)]
     print(os.getcwd())
-    os.system(f"source "venv3.8/bin/activate.fish"")
-    os.system(f"spleeter separate -o '../../src/audio_output' \"{filename}\"")
+    # os.system(f"source "venv3.8/bin/activate.fish"")
+    os.system(f"python3.8 -m spleeter separate -o '../../src/audio_output' \"{filename}\"")
 
 
 def upload_file_to_s3(file, bucket_name, acl="public-read"):
