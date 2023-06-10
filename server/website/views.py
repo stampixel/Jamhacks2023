@@ -56,18 +56,18 @@ def login():
     if request.method == 'POST':
         data = request.get_data()
 
-        if users.find_one({"username": data.username}):
-            return {'user_info': users.find_one({"username": data.username})}
+        if users.find_one({"username": data["username"]}):
+            return {'user_info': users.find_one({"username": data["username"]})}
         else:
             newUser = {
-                "username": data.username,
+                "username": data["username"],
                 "word_accuracy": 0,
                 "pitch_accuracy": 0,
                 "total_score": 0
             }; 
             users.insert_one(newUser)
 
-            return {'user_info': users.find_one({"username": data.username})}
+            return {'user_info': newUser}
     return json.dumps({'success': True}, 200, {'ContentType': 'application/json'})
 
 
