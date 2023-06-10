@@ -9,8 +9,9 @@ from . import db
 
 views = Blueprint('views', __name__)
 
-users = db.Users;
+users = db.Users
 
+lyrics = []
 
 # THIS IS A TEST METHOD
 @views.route('/profile')
@@ -62,3 +63,9 @@ def music_json():
         print(data)
 
     return json.dumps({'success': True}), 200, {'ContentType': 'application/json'}
+
+@views.route('/lyric_data', methods=['GET'])
+def process_lyric():
+    data = request.get_data()
+
+    return json.dumps({"lyric_number": lyrics[data.lyric_number]}); 
