@@ -2,28 +2,30 @@ import React from 'react'
 
 export default function Landing() {
   return (
-    <div className="home-page clip-contents">
-      <img
-        src="https://firebasestorage.googleapis.com/v0/b/unify-v3-copy.appspot.com/o/r8cwveuu3z-9%3A34?alt=media&token=934d1d7b-7908-4f74-ab52-7898f5ae0ae7"
-        alt="Not Found"
-        className="image-2"
-      />
-      <div className="navbar">
+    <div className="opacity-80  bg-black	 ">
+    
+      <div className="navbar flex justify-between	flex-row items-center		">
+        <div className='flex items-center justify-center	content-center flex-row m-5		'>
         <img
           src="https://firebasestorage.googleapis.com/v0/b/unify-v3-copy.appspot.com/o/r8cwveuu3z-8%3A9?alt=media&token=1bf4f878-9242-4cf5-a61f-576db78653a3"
           alt="Not Found"
           className="image-1"
         />
-        <div className="frame-2">
-          <p className="start">START</p>
-          <p className="start-1">START</p>
-          <p className="start-2">START</p>
-          <p className="start-3">START</p>
+        <h3 class="text-white text-center		">Just Sing</h3>
         </div>
-        <div className="group-1">
-          <p className="start-4">START</p>
-        </div>
+
+        
+      
+        <button class=" m-5 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+          START
+        </button>
       </div>
+
+      <img
+        src="https://firebasestorage.googleapis.com/v0/b/unify-v3-copy.appspot.com/o/r8cwveuu3z-9%3A34?alt=media&token=934d1d7b-7908-4f74-ab52-7898f5ae0ae7"
+        alt="Not Found"
+        className="image-2"
+      />
       <div className="title">
         <p className="just-sing">Just Sing</p>
         <p className="improve-your-vocal-abil">
