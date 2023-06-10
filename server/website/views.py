@@ -82,17 +82,18 @@ def calcScore():
         data = request.get_data()
         newData = json.loads(data)
 
-        if (users.find_one({"username": newData["username"]})):
+        user = users.find_one({"username": newData["username"]}); 
+        if (user):
             users.updateOne(
                 {"word_accuracy": newData["wordAccuracy"]},
                 {"pitch_accuracy": newData["pitchAccuracy"]},
                 {"score": newData["score"]}
             )
-    else:
+    elif (request.method == 'GET'):
         allUsers = users.find()
 
         allUsers.sort(key=lambda x: x["score"])
-        return allUsers
+        return json.loads(json_util.dumps(allUsers))
     return json.dumps({'success': True}), 200, {'ContentType': 'application/json'}
 
 

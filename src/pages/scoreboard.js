@@ -37,6 +37,8 @@ export default function Login() {
                 );
             })}
         </div>
+
+        <button onClick={displayScoreboard()}></button>
       </div>
     );
   }
