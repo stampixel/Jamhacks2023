@@ -26,6 +26,8 @@
     "backend": "cd server && python app.py ",
     "chdir": "source 'venv/bin/activate.fish'",
 
+    "sad": "pwd",
+
     "backend-linux": "cd server && ../venv/bin/flask run --debug"
   },
   "eslintConfig": {
