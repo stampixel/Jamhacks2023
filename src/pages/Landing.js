@@ -11,7 +11,7 @@ export default function Landing() {
           alt="Not Found"
           className="image-1"
         />
-        <h3 class="text-white text-center		">Just Sing</h3>
+        <h3 class="text-white text-center">Just Sing</h3>
         </div>
 
         
