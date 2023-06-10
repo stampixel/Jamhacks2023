@@ -3,7 +3,7 @@ import useSpeechRecognition from "../hooks/useSpeechRecogntion";
 import usePitchAnalyser from "../hooks/usePitchAnalyser";
 
 function AudioPlayer(props) {
-  const audioRef = useRef(new Audio("/eye.mp3"));
+  // const audioRef = useRef(new Audio("/eye.mp3"));
   const [currentSecond, setCurrentSecond] = useState(0);
   const intervalRef = useRef(null);
   const [audioEnded, setAudioEnded] = useState(false);
@@ -125,11 +125,14 @@ useEffect(()=>{
 
     
   return (
-    <div className="audioPlayer">
-      <button className="startButton" onClick={handlePlay}>Play</button>
-      <button onClick={handlePause}>Pause</button>
+    <div className="audioPlayer direction-column content-center justify-center justify-center">
+    
       <p>Current Second: {currentSecond}</p>
       <p>{currentSegment ? currentSegment.words : ""}</p>
+      <div className="flex direction-row">
+      <button className="startButton" onClick={handlePlay}>Play</button>
+      <button onClick={handlePause}>Pause</button>
+      </div>
 
       {audioEnded ? <p>Congratulations on Completing the song</p> : ""}
 
@@ -141,6 +144,8 @@ useEffect(()=>{
       ) : (
         <h1>Your Browser has no speech recognition support</h1>
       )}
+
+      
 
       {/*  <button onClick={handleButtonClick}>Start Visualizing</button> */}
     </div>

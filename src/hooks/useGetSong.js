@@ -58,7 +58,7 @@ export default function useGetSong() {
     // getTimestamps(songId);
   }
 
-  async function getTimestamps(__song) {
+  async function getTimestamps(__song, vocals) {
     var authParameters = {
       method: "GET",
       headers: {
@@ -72,10 +72,10 @@ export default function useGetSong() {
       `https://spotify-lyric-api.herokuapp.com/?trackid=${songId}&format=lrc`
     )
       .then((response) => response.json())
-      .then((data) => modfiyLines(__song, data));
+      .then((data) => modfiyLines(__song, data,vocals));
   }
 
-  async function modfiyLines(_song, data) {
+  async function modfiyLines(_song, data,vocals) {
     // console.log(data);
     var _lines = data.lines;
     var title = _song.name;
@@ -92,14 +92,15 @@ export default function useGetSong() {
     });
     data["name"] = title;
     data["length"] = length;
+    data["vocals"] = vocals;
     console.log(data);
     setLines(data.lines);
     sendLyrics(data);
   }
 
-  const setTheSong = (__song) => {
+  const setTheSong = (__song, vocals) => {
     console.log(__song);
-    getTimestamps(__song);
+    getTimestamps(__song, vocals);
   };
 
   function sendLyrics(data) {
