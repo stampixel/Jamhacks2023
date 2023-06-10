@@ -55,7 +55,7 @@ function App() {
     )
       .then((response) => response.json())
       .then((data) => {
-        songId = data.tracks.items[0].id;
+        // songId = data.tracks.items[0].id;
         // console.log(data); 
 
         var _songs = []; 
@@ -67,7 +67,7 @@ function App() {
         console.log(_songs); 
       });
 
-    getTimestamps(songId);
+    // getTimestamps(songId);
   }
 
   // Get song timestamps and lyrics
@@ -101,6 +101,10 @@ function App() {
     setLines(data);
   }
 
+  const setTheSong = (songName) => {
+    getTimestamps(songName); 
+  }
+
   return (
     <div className="App">
       <h1>Lyrics Finder ????</h1>
@@ -122,7 +126,7 @@ function App() {
         {songs.map((_song, i) => {
             return (
                 // <p>{_song.name}</p>
-                <li key={_song.name}>{_song.name}</li>
+                <button key={_song.name} onClick={() => setTheSong(_song.id)}>{_song.name}</button>
             )
         })}
       </div>
