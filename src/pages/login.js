@@ -1,7 +1,7 @@
 import "../App.css";
 import { useState, useEffect } from "react";
 import useGetSong from "../hooks/useGetSong";
-import getUserInfo from "../hooks/getUserInfo";
+import useUserInfo from "../hooks/useUserInfo";
 import axios from "axios";
 
 export default function Login() {
@@ -10,7 +10,7 @@ export default function Login() {
     const [pitch_accuracy, setPitchAccuracy] = useState(0); 
     const [total_score, setScore] = useState(0); 
   
-    const { user, wordAccuracy, pitchAccuracy, score } = getUserInfo();
+    const { user, wordAccuracy, pitchAccuracy, score } = useUserInfo();
 
     function loginUser(username) {
         const data = {
@@ -23,7 +23,7 @@ export default function Login() {
                 setWordAccuracy(response.word_accuracy); 
                 setPitchAccuracy(response.pitch_accuracy)
                 setScore(response.score); 
-                getUserInfo(username, word_accuracy, pitch_accuracy, total_score); 
+                useUserInfo(username, word_accuracy, pitch_accuracy, total_score);
                 console.log(response);
             })
             .catch(function (error) {
