@@ -10,12 +10,16 @@ export default function useUserInfo() {
         total_score: 0,
       });
 
+
+      
       
      function changeProfile(variables, values){
-        setInputs((prev) => ({
-            ...prev,
-            [variables]:values,
-          }));
+        setInputs(inputs=>({
+            ...inputs,
+            ...{[variables]:values}
+        })
+
+            );
       } 
 
       return{
