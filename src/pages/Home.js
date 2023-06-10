@@ -117,18 +117,18 @@ function App() {
                 className="p-6 flex  flex-row	 justify-between	 border-2 border-blight text-dark	bg-white  rounded-[25px] m-2"
                 key={_song.name}
               >
-                <img src={_song.album.images[2].url} class="w-full h-full rounded-[25px]"/>
+                <img src={_song.album.images[2].url} class="w-full h-full rounded-[12px]"/>
                 <div className="flex flex-row content-center	 items-center ml-20">
                   <b> {_song.name}</b>
                   <p>&nbsp;-&nbsp;</p>
                   <p>{_song.artists[0].name}</p>
                 </div>
                 <div className=" flex flex-row justify-between	w-full  items-center mr-4 text-sm	">
-                  <button class="	text-white bg-blight  justify-between hover:bg-blurple focus:ring-4 focus:outline-none focus:ring-blurple font-medium rounded-lg text-xs px-2 py-2 text-center mr-3 md:mr-0 w-60 flex 	 items-center mx-8 px-5" onClick={() => setTheSong(_song, true)}>
+                  <button class="h-12	text-white bg-blight  justify-between hover:bg-blurple focus:ring-4 focus:outline-none focus:ring-blurple font-medium rounded-lg text-xs px-2 py-2 text-center mr-3 md:mr-0 w-60 flex 	 items-center mx-8 px-5" onClick={() => setTheSong(_song, true)}>
                     <BiUserVoice />
                   With Vocals
                   </button>
-                  <button class="text-white bg-blight justify-evenly hover:bg-blurple focus:ring-4 focus:outline-none focus:ring-blurple font-medium rounded-lg text-xs px-2 py-2 text-center mr-3 md:mr-0  w-60   flex items-center mx-8 px-5" onClick={() => setTheSong(_song, false)}>
+                  <button class="h-12 text-white bg-blight justify-evenly hover:bg-blurple focus:ring-4 focus:outline-none focus:ring-blurple font-medium rounded-lg text-xs px-2 py-2 text-center mr-3 md:mr-0  w-60   flex items-center mx-8 px-5" onClick={() => setTheSong(_song, false)}>
                   <BsPerson />
                     Without Vocals
                   </button>
