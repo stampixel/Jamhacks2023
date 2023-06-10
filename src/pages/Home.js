@@ -59,7 +59,40 @@ function App() {
         
         </div>
 
-        <div class=" mb-60 ml-40  relative">
+        <div class="mb-3">
+  <div class="relative mb-4 flex w-full flex-wrap items-stretch mr-40 ml-40 mb-56	">
+    <input
+      type="search"
+      class="relative m-0 -mr-0.5 block w-[1px] min-w-0 flex-auto p-4 text-sm text-gray border border-gray rounded-lg bg-white focus:ring-blurple focus:border-blurple" required
+      placeholder="Search Song"
+      aria-label="Search"
+      aria-describedby="button-addon1"
+      onChange={(e) => {
+        setSong(e.target.value);
+      }} />
+
+    <button
+    onClick={() => search(song)}
+      class="relative z-[2] flex items-center rounded-r bg-blurple px-6 py-2.5 text-xs font-medium uppercase leading-tight text-white shadow-md transition duration-150 ease-in-out hover:bg-primary-700 hover:shadow-lg focus:bg-primary-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-primary-800 active:shadow-lg"
+      type="button"
+      id="button-addon1"
+      data-te-ripple-init
+      data-te-ripple-color="light">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 20 20"
+        fill="currentColor"
+        class="h-5 w-5">
+        <path
+          fill-rule="evenodd"
+          d="M9 3.5a5.5 5.5 0 100 11 5.5 5.5 0 000-11zM2 9a7 7 0 1112.452 4.391l3.328 3.329a.75.75 0 11-1.06 1.06l-3.329-3.328A7 7 0 012 9z"
+          clip-rule="evenodd" />
+      </svg>
+    </button>
+  </div>
+</div>
+
+     {/*   <div class=" mb-60 ml-40  relative">
         
         <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
             <svg aria-hidden="true" class="w-5 h-5 text-dark" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
@@ -75,7 +108,7 @@ function App() {
           ></input>
         <button type="submit" class="mr-40 text-white absolute right-2.5 bottom-2.5 bg-blurple hover:bg-blurple focus:ring-4 focus:outline-none focus:ring-blurple font-medium rounded-lg text-sm px-4 py-2" onClick={() => search(song)}>Search</button>
       </div> 
-
+        */}
         <div className="song-list flex-col	flex">
           {songs.map((_song, i) => {
             return (
