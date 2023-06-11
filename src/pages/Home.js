@@ -13,7 +13,7 @@ function App() {
   const { search, setTheSong, songs, lines } = useGetSong();
 
   return (
-    <div className="App">
+    <div className="App font-syne">
       <div className="bg-dark h-full w-full z-0">
       
       <nav class="bg-dark w-full z-20 top-0 left-0 text-white">
@@ -49,18 +49,20 @@ function App() {
         </div>
       </nav>
 
-      <div className='header' class='bg-dark'>
+      <div className='header' class='bg-dark h-screen'>
+        <img src="/Users/fionacai/Jamhacks2023/src/imgs/Star 1.png"></img>
         <div>
-          <div class="h-60 flex items-center justify-center">
+          <div class="h-72 flex items-center justify-center">
             <div class="mx-2 text-center">
-              <h1 className="title" class='text-white font-extrabold text-4xl xs:text-5xl md:text-6xl'>All Your Favourites In One Place</h1>
+              <h1 className="title" class='text-white font-bold text-4xl xs:text-5xl md:text-6xl'>All Your Favourites In One Place</h1>
+              <h2 className="subtitle" class='justify-center text-white font-regular text-1xl xs:text-2xl md:text-3xl leading-tight flex w-1/2 mx-1/2'>Don't believe us? Try searching for any song you know!</h2>
             </div>
           </div>
         
         </div>
 
         <div class="mb-3">
-  <div class="relative mb-4 flex w-full flex-wrap items-stretch mr-40 ml-40 mb-56	">
+  <div class="relative flex w-full flex-wrap items-stretch mr-40 ml-40">
     <input
       type="search"
       class="relative m-0 -mr-0.5 block w-[1px] min-w-0 flex-auto p-4 text-sm text-gray border border-gray rounded-lg bg-white focus:ring-blurple focus:border-blurple" required
