@@ -24,7 +24,7 @@ const useSpeechRecognition = () => {
             console.log('onresult event: ', event) 
             setText(event.results[0][0].transcript)
             console.log(event)
-            var wordsSaid = event.results[0][0].transcript.split(""); 
+            var wordsSaid = event.results[0][0].transcript.split(" "); 
             setArrayLyrics(wordsSaid)
             stopListening()
         }

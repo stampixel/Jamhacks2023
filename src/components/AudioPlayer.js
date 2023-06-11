@@ -21,13 +21,14 @@ const [hide,setHide] = useState(false)
 const [differences,setDifference] = useState(false)
 const [score, setScore] = useState([])
   const audio = audioRef.current;
-  const [finalScore,setFinalScore] = useState(false)
+  const [theArray, setTheArray] = useState([]);
+
+  const [finalScore,setFinalScore] = useState(0)
   
   //const { startRecording, analyser, message } = useAudioVisualization();
   const [isRecognitionDelayed, setIsRecognitionDelayed] = useState(false);
 
-  let tempScore = 0
-  let totalWords = 0
+  let totalScore = 0
 
   useEffect(() => {
     const audio = audioRef.current;
@@ -36,17 +37,27 @@ const [score, setScore] = useState([])
       setCurrentSecond(Math.floor(audio.currentTime));
     };
 
-    const handleAudioEnded = () => {
+     function handleAudioEnded () {
+      console.log("Score: ", finalScore)
       setAudioEnded(true);
       const sum = score.reduce((a, b) => a + b, 0);
       const avg = (sum / score.length) || 0;
-      console.log(score)
-      console.log(tempScore)
+
+    console.log(theArray)
+   const data = theArray.filter(function( element ) {
+      return element !== undefined;
+   });
+
+          const sumos = data.reduce((partialSum, a) => partialSum + a, 0)
+console.log(sumos)
+        
+
+      
 
 
-      arrayLyrics.forEach((line,index)=>{
+      /*arrayLyrics.forEach((line,index)=>{
 getMatchedWords(line,location.state.lyrics[index].words)
-      })
+      }) */
       axios
         .post("/audio_ended")
         .then(function (response) {
@@ -122,13 +133,25 @@ getMatchedWords(line,location.state.lyrics[index].words)
 
   const { startPitchDetect, stopPitchDetect, linePitch } = usePitchAnalyser();
 
+  let tempScore = [];
+
   useEffect(() => {
-    let array1 = currentSegment?.words.split(" ")
-    console.log(arrayLyrics)
-    const intersection = array1?.filter(element => arrayLyrics.includes(element));
-    console.log(intersection?.length ,'/', array1?.length)
-    tempScore = tempScore?.length
-  }, [arrayLyrics,tempScore])
+    if(arrayLyrics>0){
+    let array1 = currentSegment?.words.split(" ");
+    console.log(arrayLyrics);
+    const intersection = array1?.filter((element) => arrayLyrics.includes(element));
+    console.log(intersection?.length, '/', array1?.length);
+    let scores=intersection?.length
+    setTheArray(theArray=> [...theArray, scores])
+    setFinalScore(finalScore => finalScore+scores)
+    console.log(theArray)    
+          
+    }
+    // You might need to perform additional operations or update the state with the new value of tempScore
+    // For example: setTempScore(tempScore);
+  
+  }, [arrayLyrics]); // Include tempScore as a dependency
+  
 
   useEffect(() => {
     console.log(linePitch)
@@ -152,18 +175,18 @@ getMatchedWords(line,location.state.lyrics[index].words)
     }, timeBetween); // Adjust the duration as needed
   }, [currentIndex]);
 
-  //useEffect(() => {
+  useEffect(() => {
     
 
-   // const difference = location.state.timetags[currentIndex] - linePitch[currentIndex]
-   // setDifference(difference)
+   const difference = location.state.timetags[currentIndex] - linePitch[currentIndex]
+    setDifference(difference)
     
-   // setScore((prev)=>[
-   //   ...prev,difference
-   // ])
-  //  console.log("Difference: ", difference)
+    setScore((prev)=>[
+   ...prev,difference
+   ])
+    console.log("Difference: ", difference)
   
-  //}, [linePitch]); 
+  }, [linePitch]); 
 
 
   useEffect(()=>{
@@ -229,7 +252,6 @@ function directHome(){
         {hasRecognitionSupport ? (
           <>
             {isListening ? <div>Your Browser is currently listening</div> : null}
-            {arrayLyrics ? <p>{arrayLyrics}</p> : null}
           </>
         ) : (
           <h1>Your Browser has no speech recognition support</h1>
@@ -238,6 +260,7 @@ function directHome(){
 
 {differences? Math.abs(differences) < 30? <h2 class="text-bold text-2xl transition duration-150 ease-out  text-white">Excellent</h2> :Math.abs(differences) > 30 && Math.abs(differences)<70? <h3 class="  text-bold text-xl  transition duration-150 ease-out  text-white">Good</h3> : <h4 class="text-bold  ransition duration-150 ease-out  text-white">Keep Trying</h4> : "" }
 
+{totalScore? <h1 class="text-bold text-2xl transition duration-150 ease-out  text-white">{totalScore} points for language accuracy</h1> :''}
       </div>
 
 
