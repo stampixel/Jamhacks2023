@@ -99,21 +99,24 @@ export default function useGetSong() {
     data["vocals"] = vocals;
 
 
-    await sendLyrics(data,lines);
+
+    await sendLyrics(data,lines,title,length);
 
   }
 
-  const setTheSong = (__song, vocals) => {
+  const setTheSong = (__song, vocals,) => {
     getTimestamps(__song, vocals);
   };
 
-  async function sendLyrics(data,lines) {
+  async function sendLyrics(data,lines,title,length) {
+    console.log(data)
     //setLoading(true)
     await axios
       .post("/process_music", data)
       .then(function (response) {
             //  setLoading(false)
-      navigateScreen(response.data.fileLocation,lines)
+            console.log(length)
+      navigateScreen(response.data.fileLocation,lines,title,length)
       })
       .catch(function (error) {
         alert(error);
@@ -125,8 +128,9 @@ export default function useGetSong() {
 
   }
 
-  function navigateScreen(data,lines){
-navigate('/player',{state:{locations:data, lyrics:lines} });
+  function navigateScreen(data,lines,title,length){
+    console.log(length)
+navigate('/player',{state:{locations:data, lyrics:lines,title:title,length:length} });
   }
 
 
