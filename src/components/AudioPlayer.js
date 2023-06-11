@@ -127,9 +127,8 @@ getMatchedWords(line,location.state.lyrics[index].words)
     console.log(arrayLyrics)
     const intersection = array1?.filter(element => arrayLyrics.includes(element));
     console.log(intersection?.length ,'/', array1?.length)
-    totalWords += array1?.length
-    
-  }, [arrayLyrics])
+    tempScore = tempScore?.length
+  }, [arrayLyrics,tempScore])
 
   useEffect(() => {
     console.log(linePitch)
