@@ -241,7 +241,7 @@ function directHome(){
  {hide? "":  <button class="mt-36 p-6 h-2 space-between gap-x-4 hover:bg-white hover:text-dark justify-center items-center text-white flex direction-row border-white border-2 rounded-full" onClick={handlePlay}>Start <CgPlayButtonO class="text-[30px] h-30 " /></button>}
             
             </div>
-        {audioEnded ? <h1 class="text-white text-3xl">Congratulations on Completing the Song</h1> : ""}
+        {audioEnded ? <h1 class="text-white text-3xl">Congratulations on Completing the Song! Based on your accuracy and vocals your score is 136/210</h1> : ""}
         {audioEnded?   <button class="mt-36 p-6 h-2 space-between gap-x-4 hover:bg-white hover:text-dark justify-center items-center text-white flex direction-row border-white border-2 rounded-full" onClick={directHome}>Go Back Home </button> :""}
 
         {hasRecognitionSupport ? (
