@@ -115,7 +115,7 @@ def process_music():
 
             pitches = []
             for i in data["lines"]: 
-                pitches.append(get_average_pitch("../../public/audio_output/"+filename, i["timeTag"], i["endTag"]))
+                pitches.append(get_average_pitch("../public/audio_output/"+filename, i["timeTag"], i["endTag"]))
 
             # return {"fileLocation": f"audio_output/{audio_file}"}
             return {"fileLocation": f"audio_output/{filename}", "timeTags": pitches}

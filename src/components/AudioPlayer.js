@@ -118,19 +118,23 @@ const [hide,setHide] = useState(false)
       startlistening();
       setScrollAnimation(true)
 
-      // startPitchDetect();
+      startPitchDetect();
     }
     setTimeout(() => {
       stopListening();
       setScrollAnimation(false)
 
-      //stopPitchDetect();
+      stopPitchDetect();
     }, timeBetween); // Adjust the duration as needed
   }, [currentIndex]);
 
-  /*useEffect(() => {
-    console.log(linePitch);
-  }, [linePitch]); */
+  useEffect(() => {
+    
+
+    const difference = location.state.timetags[currentIndex] - linePitch[currentIndex+2]
+    console.log(difference)
+  
+  }, [linePitch]); 
 
   /*useEffect(()=>{
   

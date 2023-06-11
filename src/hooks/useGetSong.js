@@ -94,6 +94,9 @@ export default function useGetSong() {
         line.endTag = endseconds;
       }
     });
+
+    lines.pop()
+    console.log(lines)
     data["name"] = title;
     data["length"] = length;
     data["vocals"] = vocals;
@@ -115,8 +118,8 @@ export default function useGetSong() {
       .post("/process_music", data)
       .then(function (response) {
             //  setLoading(false)
-            console.log(length)
-      navigateScreen(response.data.fileLocation,lines,title,length)
+            console.log(response)
+      navigateScreen(response.data.fileLocation,lines,title,length,response.data.timeTags)
       })
       .catch(function (error) {
         alert(error);
@@ -128,9 +131,9 @@ export default function useGetSong() {
 
   }
 
-  function navigateScreen(data,lines,title,length){
+  function navigateScreen(data,lines,title,length,timetags){
     console.log(length)
-navigate('/player',{state:{locations:data, lyrics:lines,title:title,length:length} });
+navigate('/player',{state:{locations:data, lyrics:lines,title:title,length:length ,timetags:timetags} });
   }
 
 
