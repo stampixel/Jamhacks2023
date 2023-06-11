@@ -43,13 +43,8 @@ const [score, setScore] = useState([])
       const sum = score.reduce((a, b) => a + b, 0);
       const avg = (sum / score.length) || 0;
 
-    console.log(theArray)
-   const data = theArray.filter(function( element ) {
-      return element !== undefined;
-   });
-
-          const sumos = data.reduce((partialSum, a) => partialSum + a, 0)
-console.log(sumos)
+    console.log(finalScore)
+   
         
 
       
@@ -136,21 +131,21 @@ getMatchedWords(line,location.state.lyrics[index].words)
   let tempScore = [];
 
   useEffect(() => {
-    if(arrayLyrics>0){
-    let array1 = currentSegment?.words.split(" ");
-    console.log(arrayLyrics);
-    const intersection = array1?.filter((element) => arrayLyrics.includes(element));
-    console.log(intersection?.length, '/', array1?.length);
-    let scores=intersection?.length
-    setTheArray(theArray=> [...theArray, scores])
-    setFinalScore(finalScore => finalScore+scores)
-    console.log(theArray)    
-          
+    if (arrayLyrics > 0) {
+      let array1 = currentSegment?.words.split(" ");
+      console.log(arrayLyrics);
+      const intersection = array1?.filter((element) => arrayLyrics.includes(element));
+      console.log(intersection?.length, '/', array1?.length);
+      let scores = intersection?.length;
+      console.log(scores)
+      setTheArray((prevArray) => [...prevArray, scores]);
     }
-    // You might need to perform additional operations or update the state with the new value of tempScore
-    // For example: setTempScore(tempScore);
-  
-  }, [arrayLyrics]); // Include tempScore as a dependency
+  }, [arrayLyrics]);
+
+  useEffect(() => {
+    const sum = theArray.reduce((a, b) => a + b, 0);
+    setFinalScore(sum);
+  }, [theArray]);// Include tempScore as a dependency
   
 
   useEffect(() => {
