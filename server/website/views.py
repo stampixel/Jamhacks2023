@@ -114,8 +114,11 @@ def process_music():
             # os.rename(audio_file, "../public/audio_output/" + "bye2.mp3")
 
             pitches = []
-            for i in data["lines"]: 
-                pitches.append(get_average_pitch("../public/audio_output/"+filename, i["timeTag"], i["endTag"]))
+            # for i in data["lines"]: 
+            #     pitches.append(get_average_pitch("../public/audio_output/"+filename, i["timeTag"], i["endTag"]))
+
+            for i in range(data["length"]): 
+                pitches.append(get_average_pitch("../public/audio_output/"+filename, i, i + 2))
 
             # return {"fileLocation": f"audio_output/{audio_file}"}
             return {"fileLocation": f"audio_output/{filename}", "timeTags": pitches}
@@ -126,8 +129,11 @@ def process_music():
                       "../public/audio_output/" + unidecode(os.path.splitext(filename)[0]).replace(" ", ""))
             
             pitches = []
-            for i in data["lines"]: 
-                pitches.append(get_average_pitch("../../public/audio_output/"+os.path.splitext(filename)[0]+"/accompaniment.wav", i["timeTag"], i["endTag"]))
+            # for i in data["lines"]: 
+            #     pitches.append(get_average_pitch("../../public/audio_output/"+os.path.splitext(filename)[0]+"/accompaniment.wav", i["timeTag"], i["endTag"]))
+
+            for i in range(data["length"]): 
+                pitches.append(get_average_pitch("../public/audio_output/"+os.path.splitext(filename)[0]+"/accompaniment.wav"+filename, i, i + 2))
             
             return {"fileLocation": f"audio_output/{os.path.splitext(filename)[0]}/accompaniment.wav", "timeTags": pitches}
 
