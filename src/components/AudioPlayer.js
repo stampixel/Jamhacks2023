@@ -2,11 +2,12 @@ import React, { useState, useEffect, useRef } from "react";
 import useSpeechRecognition from "../hooks/useSpeechRecogntion";
 import usePitchAnalyser from "../hooks/usePitchAnalyser";
 import axios from "axios";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import {CgPlayButtonO} from "react-icons/cg"
 
 function AudioPlayer() {
   const location = useLocation()
+  const navigate = useNavigate()
   // const audioRef = useRef(new Audio("../../" + props.location));
   const audioRef = useRef(new Audio("../../" + location.state.locations));
   const [currentSecond, setCurrentSecond] = useState(0);
@@ -18,7 +19,9 @@ function AudioPlayer() {
   const [scrollAnimation, setScrollAnimation] = useState(false); // State for the scroll animation
 const [hide,setHide] = useState(false)
 const [differences,setDifference] = useState(false)
+const [score, setScore] = useState([])
   const audio = audioRef.current;
+  const [finalScore,setFinalScore] = useState(false)
   //const { startRecording, analyser, message } = useAudioVisualization();
   const [isRecognitionDelayed, setIsRecognitionDelayed] = useState(false);
 
@@ -31,6 +34,9 @@ const [differences,setDifference] = useState(false)
 
     const handleAudioEnded = () => {
       setAudioEnded(true);
+      const sum = score.reduce((a, b) => a + b, 0);
+      const avg = (sum / times.length) || 0;
+      console.log(avg)
       axios
         .post("/audio_ended")
         .then(function (response) {
@@ -116,12 +122,12 @@ const [differences,setDifference] = useState(false)
     setNextLyrics(lyricsSegments[currentIndex + 1]);
     setPreviousLyrics(lyricsSegments[currentIndex - 1]);
     if (currentIndex >= 0) {
-      startlistening();
+     startlistening();
       setScrollAnimation(true)
 
     }
     setTimeout(() => {
-      stopListening();
+     stopListening();
       setScrollAnimation(false)
 
     }, timeBetween); // Adjust the duration as needed
@@ -132,13 +138,16 @@ const [differences,setDifference] = useState(false)
 
     const difference = location.state.timetags[currentIndex] - linePitch[currentIndex]
     setDifference(difference)
+    setScore((prev)=>[
+      ...prev,difference
+    ])
     console.log("Difference: ", difference)
   
   }, [linePitch]); 
 
 
   useEffect(()=>{
-    if(currentSecond>= location.state.lyrics[0].timeTag && currentSecond%2==0){
+    if(currentSecond>= location.state.lyrics[0].timeTag){
     startPitchDetect()
     
     setTimeout(() => {
@@ -160,7 +169,9 @@ const [differences,setDifference] = useState(false)
     }));
   }
   },[arrayLyrics]) */
-
+function directHome(){
+  navigate("/test")
+}
 
   return (
     <div class=" bg-dark w-screen h-screen font-syne">
@@ -186,14 +197,14 @@ const [differences,setDifference] = useState(false)
               <h1 className= 'title' class={` ${
     scrollAnimation ? "subtitle-transition" : ""
   } 0 text-white text-xl font-regular xs:text-5xl md:text-6xl mr-4`}>{currentSegment ? currentSegment.words : ""}</h1>
-              <h2 className="subtitle" class='opacity-50 justify-center text-white font-regular text-2xl xs:text-2xl md:text-3xl leading-tight flex w-1/2 mx-1/2'>{nextLyrics ? nextLyrics.words : ""}</h2>
+            {audioEnded? "" : <h2 className="subtitle" class='opacity-50 justify-center text-white font-regular text-2xl xs:text-2xl md:text-3xl leading-tight flex w-1/2 mx-1/2'>{nextLyrics ? nextLyrics.words : ""}</h2> } 
           
 
  {hide? "":  <button class="mt-36 p-6 h-2 space-between gap-x-4 hover:bg-white hover:text-dark justify-center items-center text-white flex direction-row border-white border-2 rounded-full" onClick={handlePlay}>Start <CgPlayButtonO class="text-[30px] h-30 " /></button>}
             
             </div>
-        {audioEnded ? <p>Congratulations on Completing the song</p> : ""}
-        {audioEnded?   <button class="mt-36 p-6 h-2 space-between gap-x-4 hover:bg-white hover:text-dark justify-center items-center text-white flex direction-row border-white border-2 rounded-full" onClick={handlePlay}>Go Back Home <CgPlayButtonO class="text-[30px] h-30 " /></button> :""}
+        {audioEnded ? <h1 class="text-white text-3xl">Congratulations on Completing the Song</h1> : ""}
+        {audioEnded?   <button class="mt-36 p-6 h-2 space-between gap-x-4 hover:bg-white hover:text-dark justify-center items-center text-white flex direction-row border-white border-2 rounded-full" onClick={directHome}>Go Back Home </button> :""}
 
         {hasRecognitionSupport ? (
           <>
@@ -205,7 +216,7 @@ const [differences,setDifference] = useState(false)
         )}
 
 
-{differences? Math.abs(differences) < 30? <p class="text-white">Excellent</p> :Math.abs(differences) > 30 && Math.abs(differences)<70? <p class="text-white">Good</p> : <p class="text-white">DO BETTER</p> : "" }
+{differences? Math.abs(differences) < 30? <h2 class="text-bold text-2xl transition duration-150 ease-out  text-white">Excellent</h2> :Math.abs(differences) > 30 && Math.abs(differences)<70? <h3 class="  text-bold text-xl  transition duration-150 ease-out  text-white">Good</h3> : <h4 class="text-bold  ransition duration-150 ease-out  text-white">Keep Trying</h4> : "" }
 
       </div>
 
