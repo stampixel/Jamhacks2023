@@ -119,6 +119,7 @@ def process_music():
 
             for i in range(data["length"]): 
                 pitches.append(get_average_pitch("../public/audio_output/"+filename, i, i + 2))
+                i += 1
 
             # return {"fileLocation": f"audio_output/{audio_file}"}
             return {"fileLocation": f"audio_output/{filename}", "timeTags": pitches}
@@ -134,6 +135,7 @@ def process_music():
 
             for i in range(data["length"]): 
                 pitches.append(get_average_pitch("../public/audio_output/"+os.path.splitext(filename)[0]+"/accompaniment.wav"+filename, i, i + 2))
+                i += 1
             
             return {"fileLocation": f"audio_output/{os.path.splitext(filename)[0]}/accompaniment.wav", "timeTags": pitches}
 
