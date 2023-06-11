@@ -2,7 +2,8 @@ import React, { useState, useEffect, useRef } from "react";
 import useSpeechRecognition from "../hooks/useSpeechRecogntion";
 import usePitchAnalyser from "../hooks/usePitchAnalyser";
 import axios from "axios";
-import {useLocation} from "react-router-dom";
+import { useLocation } from "react-router-dom";
+import {CgPlayButtonO} from "react-icons/cg"
 
 function AudioPlayer() {
   const location = useLocation()
@@ -15,7 +16,7 @@ function AudioPlayer() {
   const [previousLyrics, setPreviousLyrics] = useState("");
   const [nextLyrics, setNextLyrics] = useState("");
   const [scrollAnimation, setScrollAnimation] = useState(false); // State for the scroll animation
-
+const [hide,setHide] = useState(false)
   const audio = audioRef.current;
   //const { startRecording, analyser, message } = useAudioVisualization();
   const [isRecognitionDelayed, setIsRecognitionDelayed] = useState(false);
@@ -50,6 +51,7 @@ function AudioPlayer() {
 
   const handlePlay = () => {
     audioRef.current.play();
+    setHide(true)
   };
 
   const handlePause = () => {
@@ -86,7 +88,7 @@ function AudioPlayer() {
       currentSecond >= segment.timeTag && currentSecond < segment.endTag
   );
 
-  
+
   const {
     text,
     arrayLyrics,
@@ -98,26 +100,30 @@ function AudioPlayer() {
 
   const { startPitchDetect, stopPitchDetect, linePitch } = usePitchAnalyser();
 
-   useEffect(()=>{
-console.log(arrayLyrics)
-    },[arrayLyrics])  
+  useEffect(() => {
+    console.log(arrayLyrics)
+  }, [arrayLyrics])
 
-    useEffect(()=>{
-console.log(linePitch)
-    },[linePitch])
+  useEffect(() => {
+    console.log(linePitch)
+  }, [linePitch])
 
   useEffect(() => {
     var timeBetween =
-      (currentSegment?.endTag - currentSegment?.timeTag - 0.5) * 1000;
+      (currentSegment?.endTag - currentSegment?.timeTag - 1) * 1000;
     setLyrics(currentSegment);
     setNextLyrics(lyricsSegments[currentIndex + 1]);
     setPreviousLyrics(lyricsSegments[currentIndex - 1]);
-    if (currentIndex > 0) {
+    if (currentIndex >= 0) {
       startlistening();
-     // startPitchDetect();
+      setScrollAnimation(true)
+
+      // startPitchDetect();
     }
     setTimeout(() => {
       stopListening();
+      setScrollAnimation(false)
+
       //stopPitchDetect();
     }, timeBetween); // Adjust the duration as needed
   }, [currentIndex]);
@@ -126,44 +132,65 @@ console.log(linePitch)
     console.log(linePitch);
   }, [linePitch]); */
 
-/*useEffect(()=>{
+  /*useEffect(()=>{
+  
+   if( arrayLyrics.length > 0){
+    props.setLines((prev) => ({
+      ...prev,
+      ["speechLyrics"]: arrayLyrics[currentIndex]
+    }));
+  }
+  },[arrayLyrics]) */
 
- if( arrayLyrics.length > 0){
-  props.setLines((prev) => ({
-    ...prev,
-    ["speechLyrics"]: arrayLyrics[currentIndex]
-  }));
-}
-},[arrayLyrics]) */
 
-    
   return (
-    <div className="audioPlayer direction-column content-center justify-center justify-center">
-    
-      <p>Current Second: {currentSecond}</p>
-      <p>{currentSegment ? currentSegment.words : ""}</p>
-      <div className="flex direction-row">
-      <button className="startButton" onClick={handlePlay}>Play</button>
-      <button onClick={handlePause}>Pause</button>
+    <div class=" bg-dark w-screen h-screen font-syne">
+
+    <div className="audioPlayer direction-column content-center justify-center justify-center mx-20">
+
+      <div class="flex justify-between mt-5 mb-1" >
+        <span class="text-base font-medium text-white dark:text-white">{location.state.title}</span>
+
+        <span class="text-sm font-medium text-white dark:text-white">{Math.round(currentSecond / location.state.length * 100)}%</span>
+
       </div>
-<div>
-      {audioEnded ? <p>Congratulations on Completing the song</p> : ""}
 
-      {hasRecognitionSupport ? (
-        <>
-          {isListening ? <div>Your Browser is currently listening</div> : null}
-          {arrayLyrics ? <p>{arrayLyrics}</p> : null}
-          {nextLyrics ? <p>{nextLyrics.words}</p> : null}
-        </>
-      ) : (
-        <h1>Your Browser has no speech recognition support</h1>
-      )}
+      < div class="w-9/12 bg-blurple rounded-full h-2.5 ">
+        <div class="bg-white h-2.5 rounded-full border-blurple border-2" style={{ width: `${currentSecond / location.state.length * 100}%` }}></div>
+      </div>
 
-  </div>
+      <div className="flex direction-row">
+    </div>
+      <div>
 
-      
+            <div class="text-center justify-center direction-column flex m-20 p-10">
+              <h1 className= 'title' class={` ${
+    scrollAnimation ? "subtitle-transition" : ""
+  } 0 text-white text-xl font-regular xs:text-5xl md:text-6xl mr-4`}>{currentSegment ? currentSegment.words : ""}</h1>
+              <h2 className="subtitle" class='opacity-50 justify-center text-white font-regular text-2xl xs:text-2xl md:text-3xl leading-tight flex w-1/2 mx-1/2'>{nextLyrics ? nextLyrics.words : ""}</h2>
+          
+
+ {hide? "":  <button class="mt-36 p-6 h-2 space-between gap-x-4 hover:bg-white hover:text-dark justify-center items-center text-white flex direction-row border-white border-2 rounded-full" onClick={handlePlay}>Start <CgPlayButtonO class="text-[30px] h-30 " /></button>}
+            
+            </div>
+        {audioEnded ? <p>Congratulations on Completing the song</p> : ""}
+        {audioEnded?   <button class="mt-36 p-6 h-2 space-between gap-x-4 hover:bg-white hover:text-dark justify-center items-center text-white flex direction-row border-white border-2 rounded-full" onClick={handlePlay}>Go Back Home <CgPlayButtonO class="text-[30px] h-30 " /></button> :""}
+
+        {hasRecognitionSupport ? (
+          <>
+            {isListening ? <div>Your Browser is currently listening</div> : null}
+            {arrayLyrics ? <p>{arrayLyrics}</p> : null}
+          </>
+        ) : (
+          <h1>Your Browser has no speech recognition support</h1>
+        )}
+
+      </div>
+
+
 
       {/*  <button onClick={handleButtonClick}>Start Visualizing</button> */}
+    </div>
     </div>
   );
 }
