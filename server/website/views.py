@@ -118,11 +118,13 @@ def process_music():
             #     pitches.append(get_average_pitch("../public/audio_output/"+filename, i["timeTag"], i["endTag"]))
 
             for i in range(int(data["length"])): 
-                if (i >= data["lines"][i]["timeTag"] and i <= data["lines"][i]["endTag"]): 
-                    pitches.append((get_average_pitch("../public/audio_output/"+filename, i, i + 2))%220)
-                else:
-                    pitches.append(50)
-                i += 1
+                # if (i >= data["lines"][i]["timeTag"] and i <= data["lines"][i]["endTag"]): 
+                #     pitches.append((get_average_pitch("../public/audio_output/"+filename, i, i + 2))%220)
+                # else:
+                #     pitches.append(50)
+                # i += 1
+
+                pitches.append((get_average_pitch("../public/audio_output/"+filename, i, i + 2))%220)
 
             # return {"fileLocation": f"audio_output/{audio_file}"}
             return {"fileLocation": f"audio_output/{filename}", "timeTags": pitches}
@@ -137,14 +139,14 @@ def process_music():
             #     pitches.append(get_average_pitch("../../public/audio_output/"+os.path.splitext(filename)[0]+"/accompaniment.wav", i["timeTag"], i["endTag"]))
 
             for i in range(int(data["length"])): 
-                # pitches.append(get_average_pitch("../public/audio_output/"+os.path.splitext(filename)[0]+"/accompaniment.wav"+filename, i, i + 2))
-                # i += 1
-                if (i >= data["lines"][i]["timeTag"] and i <= data["lines"][i]["timeTag"]): 
-                    pitches.append(get_average_pitch("../public/audio_output/"+os.path.splitext(filename)[0]+"/accompaniment.wav"+filename, i, i + 2))
-                else:
-                    pitches.append(50)
-
+                pitches.append(get_average_pitch("../public/audio_output/"+os.path.splitext(filename)[0]+"/accompaniment.wav"+filename, i, i + 2))
                 i += 1
+                # if (i >= data["lines"][i]["timeTag"] and i <= data["lines"][i]["timeTag"]): 
+                #     pitches.append(get_average_pitch("../public/audio_output/"+os.path.splitext(filename)[0]+"/accompaniment.wav"+filename, i, i + 2))
+                # else:
+                #     pitches.append(50)
+
+                # i += 1
             
             return {"fileLocation": f"audio_output/{os.path.splitext(filename)[0]}/accompaniment.wav", "timeTags": pitches}
 
