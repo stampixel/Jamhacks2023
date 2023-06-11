@@ -81,15 +81,15 @@ export default function useGetSong() {
 
   async function modfiyLines(_song, data, vocals) {
     // console.log(data);
-    var _lines = data.lines;
+    var lines = data.lines;
     var title = _song.name;
     var length = _song.duration_ms / 1000;
-    await _lines.forEach((line, index) => {
+    await lines.forEach((line, index) => {
       var a = line.timeTag.split(":");
       var seconds = parseInt(a[0]) * 60 + parseInt(a[1]);
       line.timeTag = seconds;
-      if (data[index + 1]) {
-        var end = data[index + 1]?.timeTag.split(":");
+      if (lines[index + 1]) {
+        var end = lines[index + 1]?.timeTag.split(":");
         var endseconds = parseInt(end[0]) * 60 + parseInt(end[1]);
         line.endTag = endseconds;
       }
@@ -97,25 +97,23 @@ export default function useGetSong() {
     data["name"] = title;
     data["length"] = length;
     data["vocals"] = vocals;
-    
-    console.log(data);
-   // setLines(data.lines);
-     sendLyrics(data);
+
+
+    await sendLyrics(data,lines);
+
   }
 
   const setTheSong = (__song, vocals) => {
-    console.log(__song);
     getTimestamps(__song, vocals);
   };
 
-  async function sendLyrics(data) {
-    console.log("data:", data);
+  async function sendLyrics(data,lines) {
     //setLoading(true)
     await axios
       .post("/process_music", data)
       .then(function (response) {
             //  setLoading(false)
-      navigateScreen(response.data.fileLocation)
+      navigateScreen(response.data.fileLocation,lines)
       })
       .catch(function (error) {
         alert(error);
@@ -127,8 +125,8 @@ export default function useGetSong() {
 
   }
 
-  function navigateScreen(data){
-navigate('/player',{state:{locations:data}});
+  function navigateScreen(data,lines){
+navigate('/player',{state:{locations:data, lyrics:lines} });
   }
 
 

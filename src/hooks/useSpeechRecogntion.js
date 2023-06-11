@@ -14,7 +14,7 @@ const useSpeechRecognition = () => {
 
     const [text, setText] = useState('');
     const [arrayLyrics, setArrayLyrics] = useState([])
-    const [islistening, setIslistening] = useState('')
+    const [islistening, setIslistening] = useState(false)
 
 
     useEffect(() => {
@@ -25,10 +25,11 @@ const useSpeechRecognition = () => {
             setArrayLyrics(oldArray => [...oldArray, event.results[0][0].transcript]);
             stopListening()
         }
-    }, [])
+    }, [recognition])
 
 
     const startlistening = () => {
+    console.log("listening")
         setText('')
         setIslistening(true)
         recognition.start()
@@ -37,6 +38,8 @@ const useSpeechRecognition = () => {
 
 
     const stopListening = () => {
+                console.log("stop listening")
+
         setIslistening(false)
         recognition.stop()
     }

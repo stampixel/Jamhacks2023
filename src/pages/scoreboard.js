@@ -38,7 +38,7 @@ export default function Scoreboard() {
             })}
         </div>
 
-        <button onClick={displayScoreboard()}>LOAD DATA</button>
+        <button onClick={()=> displayScoreboard()}>LOAD DATA</button>
       </div>
     );
   }

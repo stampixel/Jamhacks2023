@@ -3,28 +3,26 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 export default function useUserInfo() {
-    const [inputs, setInputs] = useState({
-        name: "",
-        word_accuracy: 0,
-        pitch_accuracy: 0,
-        total_score: 0,
-      });
 
 
-      
-      
-     function changeProfile(variables, values){
-        setInputs(inputs=>({
-            ...inputs,
-            ...{[variables]:values}
-        })
+    const [userName,setUserName] = useState("")
 
-            );
-      } 
 
-      return{
-        changeProfile,
-        inputs
-        
-      }
+    useEffect(() => {
+       console.log(userName)
+    }, [userName]);
+
+
+    function change(name){
+        setUserName(name)
+    }
+
+
+
+
+    return {
+        change,
+        userName
+
+    }
 }
