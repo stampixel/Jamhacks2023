@@ -7,7 +7,7 @@ import {useLocation} from "react-router-dom";
 export default function Player() {
     const location = useLocation();
 
- // const { search, setTheSong, songs, lines} = useGetSong();
+ const { search, setTheSong, songs, lines} = useGetSong();
 
 
       console.log("Location: ", location?.state?.locations)
@@ -17,7 +17,7 @@ export default function Player() {
       <h1>Player</h1>
 
     
-      {/*<AudioPlayer lines={lines} location={location?.state?.locations}/>*/}
+      {<AudioPlayer lines={lines} location={location?.state?.locations}/>}
     </div>
   );
 }
