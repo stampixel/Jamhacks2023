@@ -35,7 +35,7 @@ const [score, setScore] = useState([])
     const handleAudioEnded = () => {
       setAudioEnded(true);
       const sum = score.reduce((a, b) => a + b, 0);
-      const avg = (sum / times.length) || 0;
+      const avg = (sum / score.length) || 0;
       console.log(avg)
       axios
         .post("/audio_ended")
