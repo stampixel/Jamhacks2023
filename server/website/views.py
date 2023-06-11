@@ -10,8 +10,8 @@ import youtube_dl
 from bson import json_util
 import shutil
 from unidecode import unidecode
-import subprocess
 import librosa
+import numpy as np
 
 from requests import get
 # from youtube_dl import YoutubeDL
@@ -113,14 +113,23 @@ def process_music():
             os.rename(audio_file, "../public/audio_output/" + filename)
             # os.rename(audio_file, "../public/audio_output/" + "bye2.mp3")
 
+            pitches = []
+            for i in data["lines"]: 
+                pitches.add(get_average_pitch("audio_output/"+filename), i["timeTag"], i["endTag"])
+
             # return {"fileLocation": f"audio_output/{audio_file}"}
-            return {"fileLocation": f"audio_output/{filename}"}
+            return {"fileLocation": f"audio_output/{filename}", "timeTags": pitches}
 
         else:
             filename = separate_vocals(audio_file)
             os.rename("../public/audio_output/" + os.path.splitext(filename)[0],
-                      "../public/audio_output/" + unidecode(os.path.splitext(filename)[0]).replace(' ', '').lower())
-            return {"fileLocation": f"audio_output/{unidecode(os.path.splitext(filename)[0]).replace(' ', '').lower()}/accompaniment.wav"}
+                      "../public/audio_output/" + unidecode(os.path.splitext(filename)[0]).replace(" ", ""))
+            
+            pitches = []
+            for i in data["lines"]: 
+                pitches.add(get_average_pitch("audio_output/"+os.path.splitext(filename)[0]+"/accompaniment.wav"), i["timeTag"], i["endTag"])
+            
+            return {"fileLocation": f"audio_output/{os.path.splitext(filename)[0]}/accompaniment.wav", "timeTags": pitches}
 
     return json.dumps({'success': True}), 200, {'ContentType': 'application/json'}
 
@@ -146,8 +155,28 @@ def download_video(song, time_length):
     return ''.join(filename) + ".mp3"
 
 
-def average_pitch(filename):
-    pass
+def get_average_pitch(wav_file, start_time, end_time):
+    # Load the audio file
+    audio, sr = librosa.load(wav_file)
+    
+    # Calculate the start and end samples based on time
+    start_sample = int(start_time * sr)
+    end_sample = int(end_time * sr)
+    
+    # Extract the desired segment from the audio
+    segment = audio[start_sample:end_sample]
+    
+    # Define the pitch search range
+    fmin = 100 
+    fmax = 2000 
+
+    pitches = librosa.yin(segment, fmin=fmin, fmax=fmax, sr=sr)
+    pitch_values = pitches[np.nonzero(pitches)]
+    
+    # Calculate the average pitch
+    average_pitch = np.mean(pitch_values)
+    
+    return average_pitch
 
 
 def separate_vocals(filename):
