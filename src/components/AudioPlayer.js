@@ -2,13 +2,12 @@ import React, { useState, useEffect, useRef } from "react";
 import useSpeechRecognition from "../hooks/useSpeechRecogntion";
 import usePitchAnalyser from "../hooks/usePitchAnalyser";
 import axios from "axios";
+import {useLocation} from "react-router-dom";
 
-function AudioPlayer(props) {
-  console.log("/")
-  console.log(props.location);
+function AudioPlayer() {
+  const location = useLocation()
   // const audioRef = useRef(new Audio("../../" + props.location));
-  const audioRef = useRef(new Audio("../../" + props.location));
-  console.log("audioRef, ", audioRef)
+  const audioRef = useRef(new Audio("../../" + location.state.locations));
   const [currentSecond, setCurrentSecond] = useState(0);
   const intervalRef = useRef(null);
   const [audioEnded, setAudioEnded] = useState(false);
@@ -75,7 +74,8 @@ function AudioPlayer(props) {
       //console.log(props.lines);
     }, [props.lines]); */
 
-  const lyricsSegments = props.lines;
+  const lyricsSegments = location.state.lyrics;
+
 
   const currentSegment = lyricsSegments.find(
     (segment) =>
@@ -114,11 +114,11 @@ console.log(linePitch)
     setPreviousLyrics(lyricsSegments[currentIndex - 1]);
     if (currentIndex > 0) {
       startlistening();
-      startPitchDetect();
+     // startPitchDetect();
     }
     setTimeout(() => {
       stopListening();
-      stopPitchDetect();
+      //stopPitchDetect();
     }, timeBetween); // Adjust the duration as needed
   }, [currentIndex]);
 
@@ -126,7 +126,7 @@ console.log(linePitch)
     console.log(linePitch);
   }, [linePitch]); */
 
-useEffect(()=>{
+/*useEffect(()=>{
 
  if( arrayLyrics.length > 0){
   props.setLines((prev) => ({
@@ -134,7 +134,7 @@ useEffect(()=>{
     ["speechLyrics"]: arrayLyrics[currentIndex]
   }));
 }
-},[arrayLyrics])
+},[arrayLyrics]) */
 
     
   return (
@@ -146,17 +146,20 @@ useEffect(()=>{
       <button className="startButton" onClick={handlePlay}>Play</button>
       <button onClick={handlePause}>Pause</button>
       </div>
-
+<div>
       {audioEnded ? <p>Congratulations on Completing the song</p> : ""}
 
       {hasRecognitionSupport ? (
         <>
           {isListening ? <div>Your Browser is currently listening</div> : null}
-          {arrayLyrics ? <div>{arrayLyrics}</div> : null}
+          {arrayLyrics ? <p>{arrayLyrics}</p> : null}
+          {nextLyrics ? <p>{nextLyrics.words}</p> : null}
         </>
       ) : (
         <h1>Your Browser has no speech recognition support</h1>
       )}
+
+  </div>
 
       
 

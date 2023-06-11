@@ -28,8 +28,6 @@ YDL_OPTIONS = {'format': 'bestaudio', 'noplaylist': 'True', 'postprocessors': [{
 
 views = Blueprint('views', __name__)
 
-print(os.getcwd())
-
 users = db.Users
 
 lyrics = []
@@ -60,7 +58,6 @@ def login():
     if request.method == 'POST':
         data = json.loads(request.get_data())
 
-        print(users.find_one({"username": data["username"]}))
         user = users.find_one({"username": data["username"]})
         if user:
             return json.loads(json_util.dumps(users.find_one({"username": data["username"]})))
@@ -78,25 +75,25 @@ def login():
     return json.dumps({'success': True}), 200, {'ContentType': 'application/json'}
 
 
-@views.route('/scores', methods=['GET', 'POST'])
-def calcScore():
-    if (request.method == 'POST'):
-        data = request.get_data()
-        newData = json.loads(data)
-
-        user = users.find_one({"username": newData["username"]}); 
-        if (user):
-            users.updateOne(
-                {"word_accuracy": newData["wordAccuracy"]},
-                {"pitch_accuracy": newData["pitchAccuracy"]},
-                {"score": newData["score"]}
-            )
-    elif (request.method == 'GET'):
-        allUsers = users.find()
-
-        allUsers.sort(key=lambda x: x["score"])
-        return json.loads(json_util.dumps(allUsers))
-    return json.dumps({'success': True}), 200, {'ContentType': 'application/json'}
+# @views.route('/scores', methods=['GET', 'POST'])
+# def calcScore():
+#     if (request.method == 'POST'):
+#         data = request.get_data()
+#         newData = json.loads(data)
+#
+#         user = users.find_one({"username": newData["username"]});
+#         if (user):
+#             users.updateOne(
+#                 {"word_accuracy": newData["wordAccuracy"]},
+#                 {"pitch_accuracy": newData["pitchAccuracy"]},
+#                 {"score": newData["score"]}
+#             )
+#     elif (request.method == 'GET'):
+#        allUsers = users.find()
+#
+#        # allUsers.sort(key=lambda x: x["score"])
+#         return json.loads(json_util.dumps(allUsers)
+#        return json.dumps({'success': True}), 200, {'ContentType': 'application/json'}
 
 
 # renamed music_json -->  process_music
@@ -104,11 +101,8 @@ def calcScore():
 def process_music():
     if request.method == 'POST':
         import os
-        print(os.getcwd())
 
         data = json.loads(request.get_data())
-        # print(data)
-        # print(str(data["name"]) + " " + str(data["lines"][-1]["timeTag"]))
 
         audio_file = download_video(data["name"], data["length"])
 
@@ -128,9 +122,6 @@ def process_music():
 
         else:
             filename = separate_vocals(audio_file)
-            # return {"fileLocation": f"audio_output/{''.join(os.path.splitext(audio_file.upper())[:-1])}/accompaniment.wav"}
-            print(os.path.splitext(filename))
-            print(os.getcwd())
             os.rename("../public/audio_output/" + os.path.splitext(filename)[0],
                       "../public/audio_output/" + unidecode(os.path.splitext(filename)[0]).replace(" ", ""))
             
@@ -148,7 +139,6 @@ def download_video(song, time_length):
 
     for data in results:
         if len(data['duration'].split(":")) < 3:
-            print(data["duration"].split(":"))
             time = (int(data["duration"].split(":")[0]) * 60) + int(data["duration"].split(":")[1])
             if abs(int(time) - int(time_length)) < 3:
                 title = data["title"]
@@ -191,31 +181,10 @@ def get_average_pitch(wav_file, start_time, end_time):
 
 def separate_vocals(filename):
     # files = [f for f in os.listdir('.') if os.path.isfile(f)]
-    print(os.getcwd())
+    # subprocess.run(["../venv3/bin/python3.8", "-m", "spleeter", "separate", "-o", "../public/audio_output", filename])
     os.system(f"../venv3/bin/python3.8 -m spleeter separate -o '../public/audio_output' \"{filename}\"")
+    # p = subprocess.run(["../venv3/bin/python3.8", "-m", "spleeter", "separate", "-o", "'../public/audio_output'", f"{filename}"])
     return filename
-
-
-def upload_file_to_s3(file, bucket_name, acl="public-read"):
-    try:
-        s3 = boto3.client(
-            "s3",
-            aws_access_key_id=app.config['S3_KEY'],
-            aws_secret_access_key=app.config['S3_SECRET']
-        )
-        file.seek(0)
-        s3.upload_fileobj(
-            file,
-            bucket_name,
-            session['username'] + "/" + file.filename,
-            # file.filename,
-            ExtraArgs={
-                "ACL": acl,
-                "ContentType": file.content_type
-            }
-        )
-    except Exception as e:
-        print("Something Happened: ", e)
 
 
 @views.route('/lyric_data', methods=['GET'])

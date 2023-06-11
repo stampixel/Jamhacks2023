@@ -210,10 +210,10 @@ const usePitchAnalyser = () => {
     // TODO: Paint confidence meter on canvasElem here.
 
     if (ac == -1) {
-     console.log("Vague");
+     //console.log("Vague");
     } else {
       var pitch = ac;
-     console.log("Pitch is: ", Math.round(pitch));
+     //console.log("Pitch is: ", Math.round(pitch));
       pitches.push(Math.round(pitch));
       var note = noteFromPitch(pitch);
     //  console.log("Note of pitch is: ", noteStrings[note % 12]);
