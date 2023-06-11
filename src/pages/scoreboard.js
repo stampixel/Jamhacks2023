@@ -3,10 +3,10 @@ import { useState, useEffect } from "react";
 import useUserInfo from "../hooks/useUserInfo";
 import axios from "axios";
 
-export default function Login() {
+export default function Scoreboard() {
 
     // playerNames = [], playerScores = [], playerPitches = [], playerWords = []; 
-    var playerInfo; 
+    var playerInfo = []; 
     function displayScoreboard() {
         axios
             .get("/scores")
@@ -21,7 +21,7 @@ export default function Login() {
   
     return (
       <div className="App">
-        <h1 className="titleHeading">Login</h1>
+        <h1 className="titleHeading">Scoreboard</h1>
   
         <div className="song-list flex-col	flex">
             {playerInfo.map((player, i) => {
@@ -31,12 +31,14 @@ export default function Login() {
                         key={i["username"]}
                         >
                         <div className="flex flex-row content-center	 items-center ml-2">
-                            <p> {i["username"]} </p>
+                            <p> {player["username"]} </p>
                         </div>
                     </div>
                 );
             })}
         </div>
+
+        <button onClick={displayScoreboard()}>LOAD DATA</button>
       </div>
     );
   }

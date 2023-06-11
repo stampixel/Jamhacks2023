@@ -25,6 +25,12 @@ export default function Login() {
                 // setScore(response.score); 
              
                 console.log(response);
+                changeProfile(response.data.name,'name')
+                changeProfile(response.data.word_accuracy,'word_accuracy')
+                changeProfile(response.data.pitch_accuracy,'pitch_accuracy')
+                changeProfile(response.data.total_score, "total_score")
+                console.log(inputs)
+
             })
             .catch(function (error) {
                 console.log(error);
