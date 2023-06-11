@@ -174,6 +174,7 @@ const [hide,setHide] = useState(false)
             
             </div>
         {audioEnded ? <p>Congratulations on Completing the song</p> : ""}
+        {audioEnded?   <button class="mt-36 p-6 h-2 space-between gap-x-4 hover:bg-white hover:text-dark justify-center items-center text-white flex direction-row border-white border-2 rounded-full" onClick={handlePlay}>Go Back Home <CgPlayButtonO class="text-[30px] h-30 " /></button> :""}
 
         {hasRecognitionSupport ? (
           <>
