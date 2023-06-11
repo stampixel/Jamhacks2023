@@ -118,7 +118,10 @@ getMatchedWords(line,location.state.lyrics[index].words)
   const { startPitchDetect, stopPitchDetect, linePitch } = usePitchAnalyser();
 
   useEffect(() => {
+    let array1 = currentSegment?.words.split(" ")
     console.log(arrayLyrics)
+    const intersection = array1?.filter(element => arrayLyrics.includes(element));
+    console.log(intersection?.length ,'/', array1?.length)
   }, [arrayLyrics])
 
   useEffect(() => {
