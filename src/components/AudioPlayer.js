@@ -143,18 +143,18 @@ getMatchedWords(line,location.state.lyrics[index].words)
     }, timeBetween); // Adjust the duration as needed
   }, [currentIndex]);
 
-  useEffect(() => {
+  //useEffect(() => {
     
 
-    const difference = location.state.timetags[currentIndex] - linePitch[currentIndex]
-    setDifference(difference)
+   // const difference = location.state.timetags[currentIndex] - linePitch[currentIndex]
+   // setDifference(difference)
     
-    setScore((prev)=>[
-      ...prev,difference
-    ])
-    console.log("Difference: ", difference)
+   // setScore((prev)=>[
+   //   ...prev,difference
+   // ])
+  //  console.log("Difference: ", difference)
   
-  }, [linePitch]); 
+  //}, [linePitch]); 
 
 
   useEffect(()=>{
