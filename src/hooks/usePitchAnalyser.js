@@ -214,7 +214,7 @@ const usePitchAnalyser = () => {
     } else {
       var pitch = ac;
      //console.log("Pitch is: ", Math.round(pitch));
-      pitches.push(Math.round(pitch));
+      pitches.push(Math.round(pitch) % 220);
       var note = noteFromPitch(pitch);
     //  console.log("Note of pitch is: ", noteStrings[note % 12]);
       var detune = centsOffFromPitch(pitch, note);

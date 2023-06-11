@@ -17,6 +17,7 @@ function AudioPlayer() {
   const [nextLyrics, setNextLyrics] = useState("");
   const [scrollAnimation, setScrollAnimation] = useState(false); // State for the scroll animation
 const [hide,setHide] = useState(false)
+const [differences,setDifference] = useState(false)
   const audio = audioRef.current;
   //const { startRecording, analyser, message } = useAudioVisualization();
   const [isRecognitionDelayed, setIsRecognitionDelayed] = useState(false);
@@ -118,23 +119,37 @@ const [hide,setHide] = useState(false)
       startlistening();
       setScrollAnimation(true)
 
-      startPitchDetect();
     }
     setTimeout(() => {
       stopListening();
       setScrollAnimation(false)
 
-      stopPitchDetect();
     }, timeBetween); // Adjust the duration as needed
   }, [currentIndex]);
 
   useEffect(() => {
     
 
-    const difference = location.state.timetags[currentIndex] - linePitch[currentIndex+2]
-    console.log(difference)
+    const difference = location.state.timetags[currentIndex] - linePitch[currentIndex]
+    setDifference(difference)
+    console.log("Difference: ", difference)
   
   }, [linePitch]); 
+
+
+  useEffect(()=>{
+    if(currentSecond>= location.state.lyrics[0].timeTag && currentSecond%2==0){
+    startPitchDetect()
+    
+    setTimeout(() => {
+      stopPitchDetect();
+
+    }, 2000); 
+
+  }
+
+    
+  },[currentSecond])
 
   /*useEffect(()=>{
   
@@ -188,6 +203,9 @@ const [hide,setHide] = useState(false)
         ) : (
           <h1>Your Browser has no speech recognition support</h1>
         )}
+
+
+{differences? Math.abs(differences) < 30? <p class="text-white">Excellent</p> :Math.abs(differences) > 30 && Math.abs(differences)<70? <p class="text-white">Good</p> : <p class="text-white">DO BETTER</p> : "" }
 
       </div>
 
