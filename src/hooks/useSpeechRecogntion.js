@@ -13,7 +13,7 @@ if ("webkitSpeechRecognition" in window) {
 const useSpeechRecognition = () => {
 
     const [text, setText] = useState('');
-    const [arrayLyrics, setArrayLyrics] = useState([])
+    const [arrayLyrics, setArrayLyrics] = useState()
     const [islistening, setIslistening] = useState(false)
     
 
@@ -24,7 +24,7 @@ const useSpeechRecognition = () => {
             console.log('onresult event: ', event) 
             setText(event.results[0][0].transcript)
             console.log(event)
-            setArrayLyrics(oldArray => [...oldArray, event.results[0][0].transcript]);
+            setArrayLyrics((event.results[0][0].transcript.split(" ")))
             stopListening()
         }
     }, [recognition])
