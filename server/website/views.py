@@ -75,25 +75,25 @@ def login():
     return json.dumps({'success': True}), 200, {'ContentType': 'application/json'}
 
 
-# @views.route('/scores', methods=['GET', 'POST'])
-# def calcScore():
-#     if (request.method == 'POST'):
-#         data = request.get_data()
-#         newData = json.loads(data)
-#
-#         user = users.find_one({"username": newData["username"]});
-#         if (user):
-#             users.updateOne(
-#                 {"word_accuracy": newData["wordAccuracy"]},
-#                 {"pitch_accuracy": newData["pitchAccuracy"]},
-#                 {"score": newData["score"]}
-#             )
-#     elif (request.method == 'GET'):
-#        allUsers = users.find()
-#
-#        # allUsers.sort(key=lambda x: x["score"])
-#         return json.loads(json_util.dumps(allUsers)
-#        return json.dumps({'success': True}), 200, {'ContentType': 'application/json'}
+@views.route('/scores', methods=['GET', 'POST'])
+def calcScore():
+    if (request.method == 'POST'):
+        data = request.get_data()
+        newData = json.loads(data)
+
+        user = users.find_one({"username": newData["username"]});
+        if (user):
+            users.updateOne(
+                {"word_accuracy": newData["wordAccuracy"]},
+                {"pitch_accuracy": newData["pitchAccuracy"]},
+                {"score": newData["score"]}
+            )
+    elif (request.method == 'GET'):
+       allUsers = users.find()
+
+       # allUsers.sort(key=lambda x: x["score"])
+       return json.loads(json_util.dumps(allUsers))
+    return json.dumps({'success': True}), 200, {'ContentType': 'application/json'}
 
 
 # renamed music_json -->  process_music
@@ -118,7 +118,10 @@ def process_music():
             #     pitches.append(get_average_pitch("../public/audio_output/"+filename, i["timeTag"], i["endTag"]))
 
             for i in range(int(data["length"])): 
-                pitches.append((get_average_pitch("../public/audio_output/"+filename, i, i + 2))%220)
+                if (i >= data["lines"][i]["timeTag"] and i <= data["lines"][i]["timeTag"]): 
+                    pitches.append((get_average_pitch("../public/audio_output/"+filename, i, i + 2))%220)
+                else:
+                    pitches.append(50)
                 i += 1
 
             # return {"fileLocation": f"audio_output/{audio_file}"}
@@ -134,7 +137,13 @@ def process_music():
             #     pitches.append(get_average_pitch("../../public/audio_output/"+os.path.splitext(filename)[0]+"/accompaniment.wav", i["timeTag"], i["endTag"]))
 
             for i in range(int(data["length"])): 
-                pitches.append(get_average_pitch("../public/audio_output/"+os.path.splitext(filename)[0]+"/accompaniment.wav"+filename, i, i + 2))
+                # pitches.append(get_average_pitch("../public/audio_output/"+os.path.splitext(filename)[0]+"/accompaniment.wav"+filename, i, i + 2))
+                # i += 1
+                if (i >= data["lines"][i]["timeTag"] and i <= data["lines"][i]["timeTag"]): 
+                    pitches.append(get_average_pitch("../public/audio_output/"+os.path.splitext(filename)[0]+"/accompaniment.wav"+filename, i, i + 2))
+                else:
+                    pitches.append(50)
+
                 i += 1
             
             return {"fileLocation": f"audio_output/{os.path.splitext(filename)[0]}/accompaniment.wav", "timeTags": pitches}

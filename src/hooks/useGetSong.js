@@ -115,7 +115,7 @@ export default function useGetSong() {
     console.log(data)
     //setLoading(true)
     await axios
-      .post("/process_music", data)
+      .post("https://n2tz2aw2e6.execute-api.ca-central-1.amazonaws.com/Prod/hello", data)
       .then(function (response) {
             //  setLoading(false)
             console.log(response)
