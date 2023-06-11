@@ -22,6 +22,10 @@ const [differences,setDifference] = useState(false)
 const [score, setScore] = useState([])
   const audio = audioRef.current;
   const [finalScore,setFinalScore] = useState(false)
+  const [speechScore,setSpeechScore] = useState({
+    tempScore:0,
+    totalWords:0,
+  })
   //const { startRecording, analyser, message } = useAudioVisualization();
   const [isRecognitionDelayed, setIsRecognitionDelayed] = useState(false);
 
@@ -37,6 +41,7 @@ const [score, setScore] = useState([])
       const sum = score.reduce((a, b) => a + b, 0);
       const avg = (sum / score.length) || 0;
       console.log(score)
+      console.log(speechScore)
 
 
       arrayLyrics.forEach((line,index)=>{
@@ -122,6 +127,14 @@ getMatchedWords(line,location.state.lyrics[index].words)
     console.log(arrayLyrics)
     const intersection = array1?.filter(element => arrayLyrics.includes(element));
     console.log(intersection?.length ,'/', array1?.length)
+    setSpeechScore(
+      pervState=>({
+        ...pervState,
+        tempScore: tempScore + intersection?.length,
+        totalWords: totalWords + array1?.length
+      })
+    )
+    
   }, [arrayLyrics])
 
   useEffect(() => {
