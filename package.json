@@ -23,10 +23,8 @@
     "eject": "react-scripts eject",
 
 
-    "backend": "cd server && python app.py ",
+    "backend": "cd server && python3 app.py ",
     "chdir": "source 'venv/bin/activate.fish'",
-
-    "sad": "pwd",
 
     "backend-linux": "cd server && ../venv/bin/flask run --debug"
   },
