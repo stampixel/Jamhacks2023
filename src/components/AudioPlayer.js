@@ -36,7 +36,12 @@ const [score, setScore] = useState([])
       setAudioEnded(true);
       const sum = score.reduce((a, b) => a + b, 0);
       const avg = (sum / score.length) || 0;
-      console.log(avg)
+      console.log(score)
+
+
+      arrayLyrics.forEach((line,index)=>{
+getMatchedWords(line,location.state.lyrics[index].words)
+      })
       axios
         .post("/audio_ended")
         .then(function (response) {
@@ -46,6 +51,11 @@ const [score, setScore] = useState([])
           console.log(error);
         });
     };
+
+    function getMatchedWords(words1, words2) {
+      console.log( words1.filter((word) => words2.includes(word)));
+    }
+    
 
     audio.addEventListener("timeupdate", handleTimeUpdate);
     audio.addEventListener("ended", handleAudioEnded);
@@ -121,8 +131,8 @@ const [score, setScore] = useState([])
     setLyrics(currentSegment);
     setNextLyrics(lyricsSegments[currentIndex + 1]);
     setPreviousLyrics(lyricsSegments[currentIndex - 1]);
-    if (currentIndex >= 0) {
-     startlistening();
+    if (currentIndex >0) {
+    startlistening();
       setScrollAnimation(true)
 
     }
@@ -138,6 +148,7 @@ const [score, setScore] = useState([])
 
     const difference = location.state.timetags[currentIndex] - linePitch[currentIndex]
     setDifference(difference)
+    
     setScore((prev)=>[
       ...prev,difference
     ])
@@ -170,7 +181,7 @@ const [score, setScore] = useState([])
   }
   },[arrayLyrics]) */
 function directHome(){
-  navigate("/test")
+  navigate("/")
 }
 
   return (
