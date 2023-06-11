@@ -88,10 +88,10 @@ def calcScore():
                 {"pitch_accuracy": newData["pitchAccuracy"]},
                 {"score": newData["score"]}
             )
-    elif (request.method == 'GET'):
-       allUsers = users.find()
+    elif request.method == 'GET':
+       allUsers = users.find({})
 
-       # allUsers.sort(key=lambda x: x["score"])
+       allUsers.sort(key=lambda x: x["score"])
        return json.loads(json_util.dumps(allUsers))
     return json.dumps({'success': True}), 200, {'ContentType': 'application/json'}
 
@@ -127,7 +127,7 @@ def process_music():
                 pitches.append((get_average_pitch("../public/audio_output/"+filename, i, i + 2))%220)
                 i += 1
 
-            #return {"fileLocation": f"audio_output/{audio_file}"}
+            # return {"fileLocation": f"audio_output/{audio_file}"}
             return {"fileLocation": f"audio_output/{filename}", "timeTags": pitches}
 
         else:
