@@ -118,7 +118,7 @@ def process_music():
             #     pitches.append(get_average_pitch("../public/audio_output/"+filename, i["timeTag"], i["endTag"]))
 
             for i in range(int(data["length"])): 
-                if (i >= data["lines"][i]["timeTag"] and i <= data["lines"][i]["timeTag"]): 
+                if (i >= data["lines"][i]["timeTag"] and i <= data["lines"][i]["endTag"]): 
                     pitches.append((get_average_pitch("../public/audio_output/"+filename, i, i + 2))%220)
                 else:
                     pitches.append(50)

@@ -18,6 +18,13 @@ export default function Scoreboard() {
                 console.log(error);
             });
     }
+
+    useEffect(() => {
+        let loaded = false; 
+
+        if (!loaded) displayScoreboard(); 
+        return () => { loaded = true; }
+    }, []); 
   
     return (
       <div className="App">
